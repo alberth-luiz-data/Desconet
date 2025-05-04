@@ -5,13 +5,13 @@ const app = express();
 
 app.use(cors({ origin: true }));
 
-const comunidadeRoutes = require('./routes/comunidadeRoutes');
-const desafiosRoutes = require('./routes/desafiosRoutes');
-const eventosRoutes = require('./routes/eventosRoutes');
-const postRoutes = require('./routes/postRoutes');
-const usuariosRoutes = require('./routes/usuariosRoutes');
-const comunidadesUsuariosRoutes = require('./routes/comunidadesUsuariosRoutes');
-const usuariosDesafiosRoutes = require('./routes/usuariosDesafiosRoutes');
+const comunidadeRoutes = require('./routes/comunidade.js');
+const desafiosRoutes = require('./routes/desafios.js');
+const eventosRoutes = require('./routes/eventos.js');
+const postRoutes = require('./routes/post.js');
+const usuariosRoutes = require('./routes/usuarios.js');
+const comunidadesUsuariosRoutes = require('./routes/comunidadesUsuarios.js');
+const usuariosDesafiosRoutes = require('./routes/usuariosDesafios.js');
 
 app.use('/comunidade', comunidadeRoutes);
 app.use('/desafios', desafiosRoutes);
