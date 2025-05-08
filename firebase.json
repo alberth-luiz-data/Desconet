@@ -1,35 +1,51 @@
 {
   "functions": {
     "source": "functions"
-  
+    
   },
-"hosting": {
-    "public": "public",
+
+  "apphosting": {
+    "backends": {
+    
+      "desdes": {
+
+      }
+    }
+  },
+
+
+  "hosting": {
+
+    "site": "desconet-8d482",
+
+   
+    "apphosting": "desdes",
+
+    "public": "build", 
+
+
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
+
+
     "rewrites": [
+
+      {
+        "source": "/api/**", 
+        "function": "api"   
+      },
+
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/index.html" 
       }
     ]
-  },
-    "headers": [
-      {
-        "source": "**",
-        "headers": [
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          },
-          {
-            "key": "Access-Control-Allow-Methods",
-            "value": "GET, POST, OPTIONS"
-          }
-        ]
-      }
-    ]
+
+   
   }
+
+
+}
