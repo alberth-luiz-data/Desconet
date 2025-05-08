@@ -3,7 +3,7 @@
 # Configurações para o serviço Cloud Run que hospeda seu app web
 runConfig:
   minInstances: 0  # Define o número mínimo de instâncias. 0 significa que pode desligar sem tráfego (ótimo para no-cost e ambientes de dev/staging)
-  maxInstances: 100 # Define o número máximo de instâncias. Padrão é 100, mas você pode ajustar se precisar de mais ou menos.
+  maxInstances: 10 # Define o número máximo de instâncias. Padrão é 100, mas você pode ajustar se precisar de mais ou menos.
   concurrency: 80   # Define quantas requisições simultâneas uma instância pode lidar. Padrão é 80.
   cpu: 1            # Define a quantidade de CPU para cada instância. O padrão é 1.0 (1 vCPU completo). Você pode usar valores menores (<1) ou maiores (2, 4, 6, 8) dependendo da necessidade do seu app. Lembre-se das dependências entre CPU e memória (mais de 4GiB de memória requer pelo menos 2 CPUs, etc., como vimos nos fatos).
   memoryMiB: 512    # Define a quantidade de memória para cada instância em MiB. O padrão é 512 MiB. Pode ir de 128 a 32768 MiB. Lembre-se das dependências entre memória e CPU (mais memória pode exigir mais CPU).
