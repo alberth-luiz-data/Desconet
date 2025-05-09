@@ -1,6 +1,6 @@
 // src/pages/HomePage.js
 import React, { useState, useEffect } from 'react';
-import './HomePage.css'; // Crie este arquivo para estilos, se quiser
+// import './HomePage.css'; // Crie este arquivo para estilos, se quiser
 
 // A URL base da sua função Express 'api'
 // Substitua 'us-central1' e 'desconet-8d482' pelos seus valores,

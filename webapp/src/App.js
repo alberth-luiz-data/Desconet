@@ -1,21 +1,25 @@
-// src/App.js ou src/index.js - Onde você define suas rotas
+// src/App.js ou onde você define suas rotas
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // Se estiver usando react-router-dom v5
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Se estiver usando react-router-dom v6
-import HomePage from './pages/homePage';
+// Importe 'Routes' em vez de 'Switch'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/homePage'; // Importe seu componente HomePage
 // Importe outros componentes de página aqui
 
 function App() {
   return (
     <Router>
-      {/* Switch para v5, Routes para v6 */}
-      <Switch> {/* ou <Routes> para v6 */}
-        <Route path="/" exact> {/* exact em v5, remova em v6 */}
-          <HomePage />
-        </Route>
-        {/* Adicione outras rotas aqui */}
-        {/* <Route path="/profile/:id"><ProfilePage /></Route> */}
-      </Switch> {/* ou </Routes> para v6 */}
+      {/* Use <Routes> em vez de <Switch> */}
+      <Routes>
+        {/* Use o atributo 'element' para renderizar o componente */}
+        {/* O atributo 'exact' não é mais necessário na v6 */}
+        <Route path="/" element={<HomePage />} />
+
+        {/* Exemplo com parâmetro de rota na v6 */}
+        {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}
+
+        {/* Rotas aninhadas também mudaram na v6, mas para uma rota simples '/' é assim */}
+
+      </Routes>
     </Router>
   );
 }
