@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 // A URL base da sua função Express 'api'
 // Substitua 'us-central1' e 'desconet-8d482' pelos seus valores,
 // embora já usei os do seu projeto informado!
-const FUNCTIONS_BASE_URL = 'https://api-qjufruucrq-uc.a.run.app/api';
+const FUNCTIONS_BASE_URL = 'https://api-qjufruucrq-uc.a.run.app';
 
 function HomePage() {
   const [users, setUsers] = useState([]);
