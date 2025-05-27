@@ -1,10 +1,9 @@
 {
   "functions": {
     "source": "functions"
-  
   },
-"hosting": {
-    "public": "public",
+  "hosting": {
+    "public": "webapp/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -15,8 +14,7 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
-  },
+    ],
     "headers": [
       {
         "source": "**",
@@ -33,3 +31,4 @@
       }
     ]
   }
+}
