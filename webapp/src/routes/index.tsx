@@ -14,7 +14,12 @@ import Comunidade from "../pages/home/comunity";
 import Chat from "../pages/home/chat";
 import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
+<<<<<<< HEAD
 import Desafios from "../pages/desafios/desafios";
+=======
+import Desafios from "../pages/users/desafios";
+import ChatIA from "../pages/chat";
+>>>>>>> 4137332d8cbd36cb66f1978c6a68c6dfa316f19e
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -31,6 +36,8 @@ export type RootStackParamList = {
   Chat: undefined;  
   Grupo: undefined;
   Vitima: undefined;
+  Desafio: undefined;
+  ChatIA: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -106,6 +113,12 @@ export default function Routes() {
         name="Desafio"
         component={Desafios}
         options={{ headerShown: true }}/>
+        
+        <Stack.Screen
+        name="ChatIA"
+        component={ChatIA}
+        options={{ headerShown: false }}
+      />
        
     </Stack.Navigator>
   );
