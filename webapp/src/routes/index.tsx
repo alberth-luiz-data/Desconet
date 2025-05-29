@@ -44,7 +44,7 @@ export default function Routes() {
       <Stack.Screen
         name="Welcome"
         component={Welcome}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
