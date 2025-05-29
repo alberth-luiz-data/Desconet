@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./style/home_style";
 import {
   View,
   Text,
@@ -13,8 +14,7 @@ import { FontAwesome, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
-
-import styles from "./style/home_style";
+import NavBar from "./components/navBar";
 const { width } = Dimensions.get("window");
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
@@ -160,19 +160,7 @@ export default function Home() {
         </View>
       </ScrollView>
 
-      <View style={styles.iconeRowFixed}>
-        <TouchableOpacity style={styles.iconeBotao}
-        onPress={() => navigation.navigate("Comunidade")}>
-          <FontAwesome name="users" size={24} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconeBotao}onPress={() => navigation.navigate("Grupo")}>
-          <Text style={{ color: "white", fontSize: 20 }}>+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconeBotao} onPress={() => navigation.navigate("Chat")}>
-        
-        <FontAwesome name="comment" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+      <NavBar />
     </View>
   );
 }

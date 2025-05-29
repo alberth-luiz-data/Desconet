@@ -70,14 +70,6 @@ const styles = StyleSheet.create({
     borderColor: "#3b82f6",
     marginRight: 10,
   },
-  iconeRowFixed: {
-    position: "absolute",
-    bottom: 20,
-    width: width,
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 24,
-  },
-  iconeBotao: { backgroundColor: "#3b82f6", padding: 16, borderRadius: 999 },
+  
 });
 export default styles;

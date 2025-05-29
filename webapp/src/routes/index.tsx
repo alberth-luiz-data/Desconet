@@ -9,10 +9,10 @@ import Profile from "../pages/Profile";
 import Home from "../pages/home/home";
 import SearchRegister from "../pages/Register/searchRegister";
 import FilterRegister from "../pages/Register/filterRegister";
-import FamilyHomeScreen from "../pages/home/familia";
-import Comunidade from "../pages/home/comunidade";
+import FamilyHomeScreen from "../pages/home/family";
+import Comunidade from "../pages/home/comunity";
 import Chat from "../pages/home/chat";
-import Grupo from "../pages/home/grupo";
+import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
 
 export type RootStackParamList = {
