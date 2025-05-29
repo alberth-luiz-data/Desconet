@@ -12,7 +12,7 @@ export default function FamilyHomeScreen() {
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Olá, Ana! Acompanhe o progresso do Luizinho hoje e envie algo que motive ele a continuar desconectado.</Text>
+          <Text style={styles.headerText}>Olá, {currentUser?.displayName?.split(' ')[0] || "Usuário"}! Acompanhe o progresso do Luizinho hoje e envie algo que motive ele a continuar desconectado.</Text>
         </View>
 
         <View style={styles.profileBox}>
