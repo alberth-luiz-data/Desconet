@@ -9,6 +9,11 @@ import Profile from "../pages/Profile";
 import Home from "../pages/home/home";
 import SearchRegister from "../pages/Register/searchRegister";
 import FilterRegister from "../pages/Register/filterRegister";
+import FamilyHomeScreen from "../pages/home/familia";
+import Comunidade from "../pages/home/comunidade";
+import Chat from "../pages/home/chat";
+import Grupo from "../pages/home/grupo";
+import Vitima from "../pages/home/vitima";
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -20,6 +25,11 @@ export type RootStackParamList = {
   Desempenho: undefined;
   SearchRegister: undefined;
   FilterRegister: undefined;
+  FamilyHomeScreen: undefined;
+  Comunidade: undefined;
+  Chat: undefined;  
+  Grupo: undefined;
+  Vitima: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,44 +40,68 @@ export default function Routes() {
       <Stack.Screen
         name="Welcome"
         component={Welcome}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="Profile"
         component={Profile}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="SearchRegister"
         component={SearchRegister}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
 
       <Stack.Screen
         name="FilterRegister"
         component={FilterRegister}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
+      <Stack.Screen
+        name="FamilyHomeScreen"
+        component={FamilyHomeScreen}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="Comunidade"
+        component={Comunidade}
+        options={{ headerShown: true }}
+        />
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{ headerShown: true }}
+        />
+      <Stack.Screen 
+        name="Grupo"
+        component={Grupo}
+        options={{ headerShown: true }}/>
+      <Stack.Screen
+        name="Vitima"
+        component={Vitima}
+        options={{ headerShown: true }}/>
+       
     </Stack.Navigator>
   );
 }

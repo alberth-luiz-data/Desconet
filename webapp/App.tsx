@@ -4,15 +4,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import "./src/styles/global.css";
 
 import Routes from "./src/routes/index";
-
+import Profile from "./src/pages/Profile";
+import HomeScreen from "./src/pages/home/home";
 
 const App = () => {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#1b86ea" barStyle="light-content" />
+      <StatusBar backgroundColor="#5e17eb" barStyle="light-content" />
       <Routes />
     </NavigationContainer>
   );
 };
 
-export default App;
+export default App;

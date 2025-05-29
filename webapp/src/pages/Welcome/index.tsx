@@ -16,8 +16,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 type NavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "Welcome",
-  "Home"
+  "Welcome"
 >;
 
 export default function Welcome() {
@@ -77,7 +76,19 @@ export default function Welcome() {
             <MaterialIcons name="email" size={24} color="white" />
           </View>
           <Text>Continue com email</Text>
+          
         </TouchableOpacity>
+        <TouchableOpacity
+          className="bg-white w-3/4 rounded-xl items-center flex-row justify-center h-10 gap-3"
+          onPress={() => navigation.navigate("Register")}
+        >
+          <View className="h-8 w-8 bg-blue-500 rounded-full flex justify-center items-center">
+            <MaterialIcons name="email" size={24} color="white" />
+          </View>
+          <Text>Cadastrar-se</Text>
+          
+        </TouchableOpacity>
+        
 
         <TouchableOpacity
           className="bg-blue-500 w-2/3 rounded-xl items-center border border-white flex-row justify-center gap-3 h-10"
