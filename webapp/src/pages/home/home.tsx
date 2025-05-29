@@ -15,12 +15,15 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
 import NavBar from "./components/navBar";
+import { useAuth } from "../../contexts/AuthContext";
+
 const { width } = Dimensions.get("window");
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 export default function Home() {
-  
+  const { currentUser } = useAuth();
+
   const conexoes = [
     {
       id: 1,
@@ -90,7 +93,10 @@ export default function Home() {
             />
           </View>
           <Text style={styles.saudacao}>
-            Olá, <Text style={styles.nome}>Luizinho</Text>
+            Olá,{" "}
+            <Text style={styles.nome}>
+              {currentUser?.displayName || "Usuário"}
+            </Text>
           </Text>
         </View>
 
@@ -159,7 +165,7 @@ export default function Home() {
           </View>
         </View>
       </ScrollView>
-      <NavBar/>
+      <NavBar />
     </View>
   );
 }

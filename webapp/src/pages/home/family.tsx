@@ -2,9 +2,12 @@ import React from 'react';
 import styles from './style/family_style';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { FontAwesome, Feather } from '@expo/vector-icons';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 export default function FamilyHomeScreen() {
+  const { currentUser } = useAuth();
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
@@ -14,11 +17,15 @@ export default function FamilyHomeScreen() {
 
         <View style={styles.profileBox}>
           <Image
-            source={{ uri: 'https://randomuser.me/api/portraits/women/1.jpg' }}
+            source={
+              currentUser?.photoURL 
+                ? { uri: currentUser.photoURL }
+                : { uri: 'https://randomuser.me/api/portraits/women/1.jpg' }
+            }
             style={styles.avatar}
           />
           <View>
-            <Text style={styles.username}>Luizinho</Text>
+            <Text style={styles.username}>{currentUser?.displayName || "Usuário"}</Text>
             <Text style={styles.subtitle}>Suu inhe pian</Text>
           </View>
         </View>
