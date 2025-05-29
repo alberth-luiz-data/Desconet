@@ -1,20 +1,23 @@
+import 'react-native-get-random-values';
 import React from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import "./src/styles/global.css";
+// Removendo a importação do global.css para evitar o erro de renderização de texto
+// import "./src/styles/global.css";
 
 import Routes from "./src/routes/index";
-import Profile from "./src/pages/Profile";
-import HomeScreen from "./src/pages/home/home";
-import ChatIA from "./src/pages/chat";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import Chat from './src/pages/chat';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#5e17eb" barStyle="light-content" />
-      <ChatIA />
+      <AuthProvider>
+        <StatusBar backgroundColor="#1b86ea" barStyle="light-content" />
+        <Chat />
+      </AuthProvider>
     </NavigationContainer>
   );
 };
 
-export default App;
+export default App;

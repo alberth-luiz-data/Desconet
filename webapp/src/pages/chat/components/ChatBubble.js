@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    marginRight: 8, // Para mensagens do bot (à esquerda)
-    marginLeft: 8,  // Para mensagens do usuário (à direita)
+    marginRight: 8, 
+    marginLeft: 8,  
     marginBottom: 4,
   },
   messageBubble: {

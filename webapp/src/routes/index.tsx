@@ -32,6 +32,7 @@ export type RootStackParamList = {
   Chat: undefined;  
   Grupo: undefined;
   Vitima: undefined;
+  Desafio: undefined;
   ChatIA: undefined;
 };
 
