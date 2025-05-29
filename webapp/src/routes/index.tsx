@@ -14,7 +14,7 @@ import Comunidade from "../pages/home/comunity";
 import Chat from "../pages/home/chat";
 import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
-import Desafios from "../pages/users/desafios";
+import Desafios from "../pages/desafios/desafios";
 
 export type RootStackParamList = {
   Welcome: undefined;

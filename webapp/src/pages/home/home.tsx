@@ -159,8 +159,7 @@ export default function Home() {
           </View>
         </View>
       </ScrollView>
-
-      <NavBar />
+      <NavBar/>
     </View>
   );
 }

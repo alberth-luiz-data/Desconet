@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import Tarefas from "../pages/users/desafios";
+import Tarefas from "../pages/desafios/desafios";
 import Desempenho from "../pages/Profile/desempenho";
 
 export type RootStackParamList = {

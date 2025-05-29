@@ -8,7 +8,7 @@ import { RootStackParamList } from "../../../routes";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const FloatingNavBar: React.FC = () => {
+const navBar: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
 
   return (
@@ -51,4 +51,4 @@ const FloatingNavBar: React.FC = () => {
   );
 };
 
-export default FloatingNavBar;
+export default navBar;
