@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes/index";
 import { AuthProvider } from "./src/contexts/AuthContext";
+import './src/styles/global.css';
 
 const App = () => {
   return (
