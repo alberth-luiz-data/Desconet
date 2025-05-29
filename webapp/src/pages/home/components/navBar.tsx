@@ -29,7 +29,7 @@ const FloatingNavBar: React.FC = () => {
 
       <TouchableOpacity
         style={styles.iconeBotao}
-        onPress={() => navigation.navigate('Chat')}
+        onPress={() => navigation.navigate('ChatIA')}
       >
         <FontAwesome name="comment" size={20} color="white" />
       </TouchableOpacity>
