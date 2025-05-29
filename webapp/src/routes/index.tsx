@@ -14,6 +14,7 @@ import Comunidade from "../pages/home/comunity";
 import Chat from "../pages/home/chat";
 import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
+import ChatIA from "../pages/chat";
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -30,6 +31,7 @@ export type RootStackParamList = {
   Chat: undefined;  
   Grupo: undefined;
   Vitima: undefined;
+  ChatIA: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -100,7 +102,13 @@ export default function Routes() {
       <Stack.Screen
         name="Vitima"
         component={Vitima}
-        options={{ headerShown: true }}/>
+        options={{ headerShown: true }}
+        />
+        <Stack.Screen
+        name="ChatIA"
+        component={ChatIA}
+        options={{ headerShown: false }}
+      />
        
     </Stack.Navigator>
   );
