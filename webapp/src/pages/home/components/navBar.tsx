@@ -33,6 +33,20 @@ const FloatingNavBar: React.FC = () => {
       >
         <FontAwesome name="comment" size={20} color="white" />
       </TouchableOpacity>
+      
+      <TouchableOpacity
+        style={styles.iconeBotao}
+        onPress={() => navigation.navigate('FamilyHomeScreen')}
+      >
+        <FontAwesome name="cloud" size={20} color="white" />
+      </TouchableOpacity>
+      
+      <TouchableOpacity
+        style={styles.iconeBotao}
+        onPress={() => navigation.navigate('Desafio')}
+      >
+        <FontAwesome name="battery-half" size={20} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };

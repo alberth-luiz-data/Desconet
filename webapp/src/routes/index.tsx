@@ -14,6 +14,7 @@ import Comunidade from "../pages/home/comunity";
 import Chat from "../pages/home/chat";
 import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
+import Desafios from "../pages/users/desafios";
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -100,6 +101,10 @@ export default function Routes() {
       <Stack.Screen
         name="Vitima"
         component={Vitima}
+        options={{ headerShown: true }}/>
+      <Stack.Screen
+        name="Desafio"
+        component={Desafios}
         options={{ headerShown: true }}/>
        
     </Stack.Navigator>
