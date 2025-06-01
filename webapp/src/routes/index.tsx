@@ -15,7 +15,7 @@ import Chat from "../pages/home/chat";
 import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
 import Desafios from "../pages/desafios/desafios";
-import ChatIA from "../pages/chat";
+import ChatIA from "../pages/chat/screen/ChatIA";
 
 export type RootStackParamList = {
   Welcome: undefined;

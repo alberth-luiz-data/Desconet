@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Markdown from 'react-native-markdown-display';
-import styles from '../styles';
+import styles from '../styles/chatBubbleStyles';
 
 const MessageBubble = ({ message }) => {
   const isOwnMessage = message.sender === 'user';

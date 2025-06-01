@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { EMOJI_CATEGORIES } from '../utils/emojiData';
-import styles from '../styles';
+import styles from '../styles/emojiSelectorStyles';
 
 const EmojiSelector = ({ onEmojiSelected, onClose }) => {
   const [selectedCategory, setSelectedCategory] = useState('smileys');

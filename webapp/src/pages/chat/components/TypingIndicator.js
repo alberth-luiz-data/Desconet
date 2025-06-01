@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Animated } from 'react-native';
-import styles from '../styles';
+import styles from './TypingIndicator/styles';
 
 const TypingIndicator = ({ typingAnimation }) => {
   return (

@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import styles from './styles';
-import { useChat } from './hooks/useChat';
-import MessageBubble from './components/MessageBubble';
-import TypingIndicator from './components/TypingIndicator';
-import EmojiSelector from './components/EmojiSelector';
-import ChatBubble from './components/ChatBubble'; 
-import { useAuth } from '../../contexts/AuthContext';
+import { useChat } from '../../hooks/useChat';
+import MessageBubble from '../../components/MessageBubble';
+import TypingIndicator from '../../components/TypingIndicator';
+import EmojiSelector from '../../components/EmojiSelector';
+import ChatBubble from '../../components/ChatBubble'; 
+import { useAuth } from '../../../../contexts/AuthContext';
 
 export default function Chat() {
   const [inputMessage, setInputMessage] = useState('');
@@ -64,7 +64,7 @@ export default function Chat() {
       showAvatar={true}
       avatar={
         item.sender === 'bot' 
-          ? require('../../assets/img/Logo.png') 
+          ? require('../../../../assets/img/Logo.png') 
           : (currentUser?.photoURL ? { uri: currentUser.photoURL } : null)
       }
     >
@@ -79,7 +79,7 @@ export default function Chat() {
           message={{ sender: 'bot' }}
           isOwnMessage={false}
           showAvatar={true}
-          avatar={require('../../assets/img/Logo.png')}
+          avatar={require('../../../../assets/img/Logo.png')}
         >
           <View style={styles.typingIndicatorContent}>
             <Text style={styles.typingText}>Digitando</Text>
