@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { fetchDesafios, createDesafio } from "../../services/api";
 import styles from "./styles/desafiosStyles";
-import NavBar from "../home/components/navBar";
 
 interface Desafio {
   id: string;
@@ -114,7 +113,7 @@ export default function Desafios() {
           </View>
         </KeyboardAvoidingView>
       </Modal>
-      <NavBar />
+    
     </View>
   );
 }

@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./style/home_style";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
+  Animated,
   Image,
-  StyleSheet,
   Dimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from "react-native";
-import { FontAwesome, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
-import NavBar from "./components/navBar";
+import CustomHeader, { HeaderHandle } from "../components/headerCustom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const { width } = Dimensions.get("window");
@@ -23,6 +24,14 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 export default function Home() {
   const { currentUser } = useAuth();
+  const navigation = useNavigation<NavigationProp>();
+
+  const headerRef = useRef<HeaderHandle>(null);
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const scrollY = event.nativeEvent.contentOffset.y;
+    headerRef.current?.onScroll(scrollY);
+  };
 
   const conexoes = [
     {
@@ -73,13 +82,16 @@ export default function Home() {
         "Olá rede, o grupo da vida fora de tela está organizando uma corrida de 15km pelas ruas do Recife. Venham participar! Ver mais",
     },
   ];
-  const navigation = useNavigation<NavigationProp>();
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView
+      <CustomHeader ref={headerRef} />
+
+      <Animated.ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, { paddingTop: 60 }]} // espaço para o Header
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       >
         <View style={styles.topContainer}>
           <View style={styles.searchRow}>
@@ -163,10 +175,66 @@ export default function Home() {
               </View>
             ))}
           </View>
+          <View style={{ marginTop: 32 }}>
+            {posts.map((post) => (
+              <View
+                key={post.id}
+                style={{ flexDirection: "row", marginBottom: 20 }}
+              >
+                <Image
+                  source={{
+                    uri: "https://randomuser.me/api/portraits/women/1.jpg",
+                  }}
+                  style={styles.fotoPost}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    {post.nome}{" "}
+                    <Text style={{ color: "#555" }}>{post.usuario}</Text>
+                  </Text>
+                  <Text style={{ color: "#333", marginTop: 4, fontSize: 13 }}>
+                    {post.mensagem}
+                  </Text>
+                  <View style={{ flexDirection: "row", marginTop: 6, gap: 16 }}>
+                    <Text style={{ fontSize: 12 }}>❤ 123</Text>
+                    <Text style={{ fontSize: 12 }}>🔁 78</Text>
+                    <Text style={{ fontSize: 12 }}>💬 19</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </View>
+          <View style={{ marginTop: 32 }}>
+            {posts.map((post) => (
+              <View
+                key={post.id}
+                style={{ flexDirection: "row", marginBottom: 20 }}
+              >
+                <Image
+                  source={{
+                    uri: "https://randomuser.me/api/portraits/women/1.jpg",
+                  }}
+                  style={styles.fotoPost}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    {post.nome}{" "}
+                    <Text style={{ color: "#555" }}>{post.usuario}</Text>
+                  </Text>
+                  <Text style={{ color: "#333", marginTop: 4, fontSize: 13 }}>
+                    {post.mensagem}
+                  </Text>
+                  <View style={{ flexDirection: "row", marginTop: 6, gap: 16 }}>
+                    <Text style={{ fontSize: 12 }}>❤ 123</Text>
+                    <Text style={{ fontSize: 12 }}>🔁 78</Text>
+                    <Text style={{ fontSize: 12 }}>💬 19</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </View>
         </View>
-      </ScrollView>
-      <NavBar />
+      </Animated.ScrollView>
     </View>
   );
 }
-

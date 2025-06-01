@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style/group_style';
-import NavBar from "./components/navBar";import {
+import {
   View,
   Text,
   FlatList,
@@ -97,7 +97,7 @@ export default function GroupScreen() {
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 120 }}
       />
-     <NavBar />
+     
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style/comunity_style';
-import NavBar from "./components/navBar";import {
+
+import {
   View,
   Text,
   FlatList,
@@ -122,8 +123,6 @@ export default function CommunityFeedEnhanced() {
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 120 }}
       />
-
-      <NavBar />
     </View>
   );
 }
