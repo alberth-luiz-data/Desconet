@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, Pressable,TextInput,KeyboardAvoidingView,ScrollView, Platform, Alert} from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
 import styles from "./styles";
 import Constants from "expo-constants";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from "@expo/vector-icons/AntDesign";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -13,7 +24,7 @@ const statusBarHeight = Constants.statusBarHeight;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function Register() {
-      const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<NavigationProp>();
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -23,20 +34,19 @@ export default function Register() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const validarEmail = (email: string) => {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
   const today = new Date();
-const maxDate = new Date(
-  today.getFullYear() - 14,
-  today.getMonth(),
-  today.getDate()
-);
+  
+  const maxDate = new Date(
+    today.getFullYear() - 14,
+    today.getMonth(),
+    today.getDate()
+  );
 
-
-
-    const handleRegister = () => {
+  const handleRegister = () => {
     if (!nome || !email || !senha || !confirmarSenha || !nascimento) {
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
       return;
@@ -55,8 +65,7 @@ const maxDate = new Date(
     navigation.navigate("SearchRegister");
   };
 
-
- const showDatePicker = () => {
+  const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
 
@@ -71,9 +80,16 @@ const maxDate = new Date(
     setNascimento(`${day}/${month}/${year}`);
     hideDatePicker();
   };
- return (
-      <KeyboardAvoidingView
-      style={{ flex: 1}}
+
+  const handleWebDateChange = (e: any) => {
+    const isoDate = e.target.value;
+    const [year, month, day] = isoDate.split("-");
+    setNascimento(`${day}/${month}/${year}`);
+  };
+
+  return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView
@@ -90,29 +106,29 @@ const maxDate = new Date(
         {/* Formulário */}
         <View style={styles.form}>
           {/** Nome */}
-        <View style={styles.inputBox}>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu e-mail"
-            placeholderTextColor="#999"
-            value={nome}
-            onChangeText={setNome}
-          />
-          <Text style={styles.label}>Nome</Text>
-        </View>
+          <View style={styles.inputBox}>
+            <TextInput
+              style={styles.input}
+              placeholder="Digite seu e-mail"
+              placeholderTextColor="#999"
+              value={nome}
+              onChangeText={setNome}
+            />
+            <Text style={styles.label}>Nome</Text>
+          </View>
 
           {/** Email */}
-        <View style={styles.inputBox}>
-          <TextInput
+          <View style={styles.inputBox}>
+            <TextInput
               style={styles.input}
               placeholder="Digite seu e-mail"
               value={email}
               onChangeText={setEmail}
               placeholderTextColor="#999"
               keyboardType="email-address"
-          />
-          <Text style={styles.label}>E-mail</Text>
-        </View>
+            />
+            <Text style={styles.label}>E-mail</Text>
+          </View>
 
           {/** Senha */}
           <View style={styles.inputBox}>
@@ -139,40 +155,63 @@ const maxDate = new Date(
           </View>
 
           {/** Data de Nascimento */}
-          <View style={styles.inputBox}>
-      <TouchableOpacity
-        onPress={showDatePicker}
-        style={styles.input}
-      >
-        <Text style={{ color: nascimento ? "black" : "#aaa" }}>
-          {nascimento ? nascimento : "Selecione a data"}
-        </Text>
-      </TouchableOpacity>
 
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-        maximumDate={new Date(maxDate)} // impede selecionar datas futuras
-        locale="pt-BR" // opcional, para abrir no idioma português
-        textColor="#3B82F6"
-      />
-            
+          <View style={styles.inputBox}>
+            {Platform.OS === "web" ? (
+              <input
+                style={{
+                  width: "100%",
+                  padding: 12,
+                  fontSize: 16,
+                  borderColor: "#3B82F6",
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderRadius: 8,
+                  marginBottom: 20,
+                }}
+                value={
+                  nascimento
+                    ? nascimento.split("/").reverse().join("-") // dd/mm/yyyy → yyyy-mm-dd
+                    : ""
+                }
+                onChange={handleWebDateChange}
+                type="date"
+                max={maxDate.toISOString().split("T")[0]}
+              />
+            ) : (
+              <>
+                <TouchableOpacity
+                  onPress={showDatePicker}
+                  style={styles.input}
+                >
+                  <Text style={{ color: nascimento ? "#3B82F6" : "#aaa" }}>
+                    {nascimento ? nascimento : "Selecione a data"}
+                  </Text>
+                </TouchableOpacity>
+
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                  maximumDate={maxDate } 
+                  locale="pt-BR" 
+                  textColor="#3B82F6"
+                />
+              </>
+            )}
             <Text style={styles.label}>Data de nascimento</Text>
           </View>
         </View>
 
         {/* Botão */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={handleRegister}
-          >
+          <TouchableOpacity onPress={handleRegister}>
             <View style={styles.button}>
               <AntDesign name="arrowright" size={24} color="white" />
             </View>
           </TouchableOpacity>
-          </View>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

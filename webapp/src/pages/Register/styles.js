@@ -58,7 +58,8 @@ export default StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     height: 60,
-    justifyContent:"center"
+    justifyContent:"center",
+    color: "#3B82F6"
   },
   buttonContainer: {
     justifyContent: "center",

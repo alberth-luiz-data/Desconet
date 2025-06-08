@@ -16,6 +16,7 @@ import Grupo from "../pages/home/group";
 import Vitima from "../pages/home/vitima";
 import Desafios from "../pages/desafios/desafios";
 import ChatIA from "../pages/chat/screen/ChatIA";
+import ConnectionRegister from "../pages/Register/connectionRegister/connectionRegister";
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   SearchRegister: undefined;
   FilterRegister: { searchOption: string };
   FamilyHomeScreen: undefined;
+  ConnectionRegister: undefined;
   Comunidade: undefined;
   Chat: undefined;  
   Grupo: undefined;
@@ -82,6 +84,13 @@ export default function Routes() {
         component={FilterRegister}
         options={{ headerShown: true }}
       />
+
+      <Stack.Screen
+        name="ConnectionRegister"
+        component={ConnectionRegister}
+        options={{ headerShown: true }}
+      />
+
       <Stack.Screen
         name="FamilyHomeScreen"
         component={FamilyHomeScreen}

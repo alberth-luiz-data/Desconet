@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes/index";
 import { AuthProvider } from "./src/contexts/AuthContext";
+import { Provider as PaperProvider } from 'react-native-paper';
 import './src/styles/global.css';
 import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';

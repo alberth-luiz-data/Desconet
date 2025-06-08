@@ -54,7 +54,7 @@ const handleNext = () => {
     return;
   }
 
-  navigation.navigate("Login"); 
+  navigation.navigate("ConnectionRegister"); 
 };
 
   
