@@ -1,0 +1,222 @@
+:root {
+  --blue: #007bff;
+  --gray-light: #999;
+  --white: #fff;
+  --black: #000;
+  --font-base: 16px;
+}
+/* Container pai da página (que envolve o login box) */
+.pageWrapper {
+  width: 100vw;   
+  height: 100vh;  
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #93c5fd 100%);
+  padding: 1rem;           
+  box-sizing: border-box;  
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-base);
+  scroll-behavior: smooth;
+}
+
+body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--black);
+}
+
+.container {
+ width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #93c5fd 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 40rem; /* 960px */
+  padding: 2rem;
+  background-color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.479);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Cabeçalho */
+
+.topContainer {
+  text-align: center;
+  width: 100%;
+}
+
+.logo {
+ max-width: 50%;
+  margin: 0 auto 1rem auto;
+  object-fit: contain;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 0;
+}
+
+/* Form */
+
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background-color: var(--white);
+}
+
+.input {
+  flex: 1;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--black);
+  padding-right: 2.5rem; /* Espaço para botão olho */
+}
+
+.input::placeholder {
+  color: var(--gray-light);
+}
+
+.label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background-color: var(--white);
+  padding: 0 6px;
+  font-size: 0.875rem;
+  color: var(--blue);
+  font-weight: 600;
+  pointer-events: none;
+  user-select: none;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.btnLogin {
+  width: 100%;
+  padding: 0.75rem 0;
+  background-color: var(--blue);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnLogin:hover,
+.btnLogin:focus {
+  background-color: #0056b3;
+  outline: none;
+}
+
+.registerPrompt {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--blue);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0;
+  margin-left: 0.3rem;
+  text-decoration: underline;
+}
+
+/* Media Queries para responsividade */
+
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 1.5rem;
+  }
+
+  .titulo {
+    font-size: 2rem;
+  }
+
+  .logo {
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentWrapper {
+    padding: 1rem;
+  }
+
+  .titulo {
+    font-size: 1.75rem;
+  }
+
+  .inputBox {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+    padding-right: 2rem;
+  }
+
+  .btnLogin {
+    padding: 0.65rem 0;
+    font-size: 0.9rem;
+  }
+
+  .registerPrompt {
+    font-size: 0.85rem;
+  }
+}
