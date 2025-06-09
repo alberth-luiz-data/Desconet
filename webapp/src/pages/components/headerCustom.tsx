@@ -10,12 +10,15 @@ import {
   Pressable,
   TextInput,
   View,
+  Text
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { RootStackParamList } from '../../routes';
-import styles from '../home/style/headerCustom_styles';
+import styles from './headerCustom_styles';
+
+
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 const HEADER_HEIGHT = 60;
@@ -30,6 +33,7 @@ const Header = forwardRef<HeaderHandle>((_, ref) => {
   const [searchQuery, setSearchQuery] = useState('');
   const translateY = useRef(new Animated.Value(0)).current;
   const lastScrollY = useRef(0);
+  
 
   useImperativeHandle(ref, () => ({
     onScroll: (scrollY: number) => {
@@ -83,35 +87,32 @@ const Header = forwardRef<HeaderHandle>((_, ref) => {
       </Animated.View>
 
       {menuOpen && (
-        <View style={styles.drawerOverlay}>
-          <View style={styles.drawer}>
-            {[
-              { label: 'Home', route: 'Home' },
-              { label: 'Perfil', route: 'Profile' },
-              { label: 'Tela Família', route: 'FamilyHomeScreen' },
-              { label: 'Chat IA', route: 'ChatIA' },
-              { label: 'Chat', route: 'Chat' },
-              { label: 'Grupos', route: 'Grupo' },
-              { label: 'Vítima', route: 'Vitima' },
-              { label: 'Desafios', route: 'Desafio' },
-            ].map(({ label, route }) => (
-              <Pressable
-                key={route}
-                onPress={() => {
-                  navigation.navigate(route as keyof RootStackParamList);
-                  setMenuOpen(false);
-                }}
-                style={styles.drawerItem}
-              >
-                <Ionicons name="chevron-forward-outline" size={18} color="#3b82f6" />
-                <View style={{ marginLeft: 6 }}>
-                  <Ionicons name="ellipse" size={10} color="#3b82f6" />
-                </View>
-              </Pressable>
-            ))}
-          </View>
-        </View>
-      )}
+  <View style={styles.drawerOverlay}>
+    <View style={styles.drawer}>
+      {[
+        { label: 'Home', route: 'Home' },
+        { label: 'Perfil', route: 'Profile' },
+        { label: 'Tela Família', route: 'FamilyHomeScreen' },
+        { label: 'Chat IA', route: 'ChatIA' },
+        { label: 'Chat', route: 'Chat' },
+        { label: 'Grupos', route: 'Grupo' },
+        { label: 'Vítima', route: 'Vitima' },
+        { label: 'Desafios', route: 'Desafio' },
+      ].map(({ label, route }) => (
+        <Pressable
+          key={route}
+          onPress={() => {
+            navigation.navigate(route as keyof RootStackParamList);
+            setMenuOpen(false);
+          }}
+          style={styles.drawerItem}
+        >
+           <Text style={styles.drawerText}> * {label}</Text>
+        </Pressable>
+      ))}
+    </View>
+  </View>
+)}
     </>
   );
 });
