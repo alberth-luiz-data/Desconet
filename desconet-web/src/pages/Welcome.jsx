@@ -32,7 +32,8 @@ export default function Welcome() {
           <MdAppRegistration size={20} />
           Cadastrar-se
         </button>
-          {/* button abaixo só pra testes da IA */}
+
+          {/* button abaixo só pra testes da IA, remover dps */}
         <button
           className={styles.emailButton}
           onClick={() => navigate("/chat")}
