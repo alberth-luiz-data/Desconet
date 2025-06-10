@@ -1,0 +1,140 @@
+.pageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #93c5fd 100%);
+  padding: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 30%;
+  height: 30%;
+  object-fit: contain;
+}
+
+.headerText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+.formWrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  background-color: #ffffff;      /* fundo branco */
+  color: #333333;                 /* texto escuro para contraste */
+  border: 1px solid #ccc;         /* borda leve */
+  border-radius: 8px;             /* borda arredondada */
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+  border-color: #007BFF;          /* borda verde ao focar */
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2); /* leve sombra */
+  outline: none;
+}
+
+.label {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  color: #007BFF;
+  
+}
+
+.subTitle {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.atividadesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.atividadeBtn {
+  background-color: #ffffff;
+  border: 1px solid #1d1d1d;
+  color: #000000;
+}
+
+.atividadeBtn:hover { 
+  background-color: #eee;
+}
+
+.selected {
+  background-color: #007BFF;
+  color: white;
+  border-color: #007BFF;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #007BFF;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .formWrapper {
+    flex-direction: column;
+  }
+
+  .buttonContainer {
+    justify-content: center;
+  }
+}
