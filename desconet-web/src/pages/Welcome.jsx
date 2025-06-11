@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { MdEmail, MdAppRegistration } from "react-icons/md";
+import { MdEmail, MdAppRegistration, MdChat } from "react-icons/md";
 
 import styles from "../styles/Welcome.module.css";
 
@@ -31,6 +31,16 @@ export default function Welcome() {
         >
           <MdAppRegistration size={20} />
           Cadastrar-se
+        </button>
+
+        <button
+          className={styles.emailButton}
+          onClick={() => navigate("/chat")}
+          type="button"
+          style={{ marginTop: "1rem" }}
+        >
+          <MdChat size={20} />
+          Testar Chat AI
         </button>
       </div>
     </div>
