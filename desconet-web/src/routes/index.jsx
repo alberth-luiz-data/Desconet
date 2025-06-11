@@ -7,7 +7,7 @@ import ChatAI from "../pages/chatAI";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import NavBAr from "../pages/NavBar";
-import Group from "../pages/Group";
+import Group from "../pages/group";
 import Family from "../pages/family";
 
 const routes = [
