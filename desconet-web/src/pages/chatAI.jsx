@@ -129,7 +129,12 @@ const ChatAI = () => {
           {isLoading && (
             <div className={`${styles.message} ${styles.botMessage}`}>
               <div className={styles.loadingMessage}>
-                Digitando
+                <span>Desconet está digitando</span>
+                <div className={styles.typingIndicator}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             </div>
           )}
@@ -151,7 +156,6 @@ const ChatAI = () => {
             onKeyPress={handleKeyPress}
             placeholder="Digite sua mensagem..."
             className={styles.input}
-            disabled={isLoading}
           />
           <button
             onClick={handleSendMessage}
