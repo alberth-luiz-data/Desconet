@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styles from '../styles/Register.module.css';
-// Certifique-se que este caminho está correto
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";  
-import { auth, db } from "../firebaseConfig"; // db importado junto
-import { collection, addDoc } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig"; 
+
 
 export default function Register() {
   const [nome, setNome] = useState("");

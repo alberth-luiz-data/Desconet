@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+  padding: 1rem 2rem;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #2563eb;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  padding: 0.3rem 0.75rem;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 1rem;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+.search-field {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 0.4rem;
+  font-size: 0.875rem;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.drawer {
+  position: absolute;
+  top: 3.5rem;
+  left: 1rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 220px;
+}
+
+.drawer-item {
+  background-color: #1e3a8a;
+  color: white;
+  border: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.drawer-item:hover {
+  background-color: #3b82f6;
+}

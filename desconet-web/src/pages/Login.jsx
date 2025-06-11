@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../firebaseConfig";
 
 export default function Login({ onNavigateRegister }) {
   const [email, setEmail] = useState("");
@@ -14,14 +14,14 @@ export default function Login({ onNavigateRegister }) {
   const emailInputRef = useRef(null);
 
   useEffect(() => {
-    // Foca o input email ao carregar a tela
     emailInputRef.current?.focus();
   }, []);
 
+  /*
   const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = async () => {
-    if (loading) return; // evita múltiplos cliques
+    if (loading) return;
 
     if (!email.trim() || !senha.trim()) {
       alert("Preencha o e-mail e a senha.");
@@ -36,11 +36,8 @@ export default function Login({ onNavigateRegister }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, senha);
       const user = userCredential.user;
-
       console.log("Usuário autenticado:", user.uid);
-
       localStorage.setItem("uid", user.uid);
-
       navigate("/home");
     } catch (error) {
       console.error("Erro no login:", error.code);
@@ -55,6 +52,12 @@ export default function Login({ onNavigateRegister }) {
       setLoading(false);
     }
   };
+  */
+
+const handleLogin = () => {
+  console.log("Login clicado");
+  navigate("/home");
+};
 
   return (
     <div className={styles.container}>
@@ -105,14 +108,18 @@ export default function Login({ onNavigateRegister }) {
             className={styles.btnLogin}
             onClick={handleLogin}
             disabled={loading}
-            aria-busy={loading}
           >
-            {loading ? "Entrando..." : "Login"}
+            Login
           </button>
 
           <p className={styles.registerPrompt}>
             Não tem conta?
-            <button type="button" className={styles.link} onClick={onNavigateRegister} disabled={loading}>
+            <button
+              type="button"
+              className={styles.link}
+              onClick={onNavigateRegister}
+              disabled={loading}
+            >
               Crie sua conta
             </button>
           </p>
