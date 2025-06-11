@@ -85,8 +85,14 @@ const ChatAI = () => {
     }
   };
   
+  const handleTouchStart = (e) => {
+    if (e.target.closest(`.${styles.sendButton}`)) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onTouchStart={handleTouchStart}>
       <div className={styles.container}>
         <div className={styles.header}>
           <button 
@@ -163,7 +169,7 @@ const ChatAI = () => {
             className={styles.sendButton}
             title="Enviar mensagem"
           >
-            <MdSend size={22} />
+            <MdSend size={20} />
           </button>
         </div>
       </div>
