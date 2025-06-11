@@ -17,7 +17,7 @@ const routes = [
   { path: "/register", element: <Register /> },
   {path: "/home", element: <Home /> },
   {path: "/chatAI", element: <ChatAI /> },
-  {path: "/profile", element: <Profile /> }
+  {path: "/profile", element: <Profile /> },
   {path : "/navbar", element: <NavBAr /> },
   {path: "/group", element: <Group /> },
 ];
