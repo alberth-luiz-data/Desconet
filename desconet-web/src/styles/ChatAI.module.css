@@ -270,6 +270,12 @@
   flex-shrink: 0;
 }
 
+.sendIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .sendButton:hover:not(:disabled) {
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   transform: translateY(-1px);
@@ -347,6 +353,11 @@
     min-width: 52px;
     min-height: 52px;
   }
+  
+  .sendIcon {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -369,6 +380,11 @@
     padding: 2rem;
     min-height: 90px;
     max-height: 90px;
+  }
+  
+  .sendIcon {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -418,6 +434,11 @@
     min-width: 40px;
     min-height: 40px;
   }
+  
+  .sendIcon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* Extra small screens */
@@ -448,6 +469,11 @@
     height: 36px;
     min-width: 36px;
     min-height: 36px;
+  }
+  
+  .sendIcon {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -481,6 +507,11 @@
     height: 36px;
     min-width: 36px;
     min-height: 36px;
+  }
+  
+  .sendIcon {
+    width: 14px;
+    height: 14px;
   }
 }
 

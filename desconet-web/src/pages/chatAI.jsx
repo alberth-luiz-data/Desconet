@@ -169,7 +169,7 @@ const ChatAI = () => {
             className={styles.sendButton}
             title="Enviar mensagem"
           >
-            <MdSend size={20} />
+            <MdSend className={styles.sendIcon} />
           </button>
         </div>
       </div>
