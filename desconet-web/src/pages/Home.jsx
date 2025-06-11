@@ -1,36 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../firebaseConfig"; // importando juntos
+import { auth, db } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Home.module.css";
 import { onAuthStateChanged } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export default function Home() {
   const [usuario, setUsuario] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Observa o estado de autenticação
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          const docRef = doc(db, "usuarios", user.uid);
-          const docSnap = await getDoc(docRef);
+          const uid = user.uid;
 
-          if (docSnap.exists()) {
-            setUsuario(docSnap.data());
-            localStorage.setItem("uid", user.uid);
-          } else {
-            alert("Dados do usuário não encontrados.");
+          // Agora buscamos pelo campo uid usando uma query
+          const usuariosRef = collection(db, "usuarios");
+          const q = query(usuariosRef, where("uid", "==", uid));
+          const querySnapshot = await getDocs(q);
+
+          if (querySnapshot.empty) {
+            throw new Error("Usuário não encontrado no Firestore");
+          }
+
+          const docData = querySnapshot.docs[0].data();
+          setUsuario({ id: querySnapshot.docs[0].id, ...docData });
+          localStorage.setItem("uid", uid);
+          setErro(null);
+        } catch (error) {
+          console.error("Erro ao buscar usuário:", error);
+          setErro("Erro ao carregar dados do usuário. Você será redirecionado.");
+          setTimeout(() => {
             auth.signOut();
             navigate("/");
-          }
-        } catch (error) {
-          console.error("Erro ao buscar dados do usuário:", error);
-          alert("Erro ao carregar dados do usuário.");
+          }, 3000);
+        } finally {
+          setLoading(false);
         }
       } else {
-        alert("Usuário não autenticado. Faça login.");
         localStorage.removeItem("uid");
         navigate("/");
       }
@@ -40,6 +50,7 @@ export default function Home() {
   }, [navigate]);
 
   const formatarData = (dataStr) => {
+    if (!dataStr) return "Não informado";
     const partes = dataStr.split("/");
     if (partes.length === 3) return dataStr;
     if (dataStr.length === 8) {
@@ -48,13 +59,16 @@ export default function Home() {
     return dataStr;
   };
 
-  if (!usuario) return <div className={styles.loading}>Carregando...</div>;
+  if (loading) return <div className={styles.loading}>Carregando...</div>;
+  if (erro) return <div className={styles.error}>{erro}</div>;
+  if (!usuario) return <div className={styles.loading}>Carregando usuário...</div>;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Bem-vindo(a), {usuario.nome}!</h1>
 
       <div className={styles.card}>
+        <p><strong>UID:</strong> {usuario.uid}</p>
         <p><strong>E-mail:</strong> {usuario.email}</p>
         <p><strong>Nascimento:</strong> {formatarData(usuario.nascimento)}</p>
         <p><strong>Telefone:</strong> {usuario.telefone}</p>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Welcome from "../pages/Welcome";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import ChatAI from "../pages/chat/chatAI/chatAI";
+import ChatAI from "../pages/chatAI";
 import Home from "../pages/Home";
 
 const routes = [

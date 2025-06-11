@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdArrowBack, MdSend } from 'react-icons/md';
 import ReactMarkdown from 'react-markdown';
-import { sendMessageToN8N, getErrorMessage, generateUserId, generateSessionId } from '../../../services/apiAI';
-import styles from './ChatAI.module.css';
+import { sendMessageToN8N, getErrorMessage, generateUserId, generateSessionId } from '../services/apiAI';
+import styles from '../styles/ChatAI.module.css';
 
 const ChatAI = () => {
   const navigate = useNavigate();

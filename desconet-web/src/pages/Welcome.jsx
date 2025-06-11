@@ -23,7 +23,6 @@ export default function Welcome() {
           <MdEmail size={20} />
           Continuar com Email
         </button>
-
         <button
           className={styles.registerButton}
           onClick={() => navigate("/register")}
@@ -32,15 +31,12 @@ export default function Welcome() {
           <MdAppRegistration size={20} />
           Cadastrar-se
         </button>
-
         <button
           className={styles.emailButton}
           onClick={() => navigate("/chat")}
           type="button"
-          style={{ marginTop: "1rem" }}
-        >
-          <MdChat size={20} />
-          Testar Chat AI
+        ><MdChat size={20}/>
+          Tire suas dúvidas com a IA
         </button>
       </div>
     </div>

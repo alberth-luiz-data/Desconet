@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styles from '../styles/Register.module.css';
-import { auth } from "../firebaseConfig"; // Certifique-se que este caminho está correto
+// Certifique-se que este caminho está correto
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";  
+import { auth, db } from "../firebaseConfig"; // db importado junto
+import { collection, addDoc } from "firebase/firestore";
 
 export default function Register() {
   const [nome, setNome] = useState("");
@@ -12,6 +15,7 @@ export default function Register() {
   const [telefone, setTelefone] = useState("");
   const [objetivo, setObjetivo] = useState("");
   const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([]);
+  
 
   const atividades = [
     "Academia", "Filmes", "Yoga", "Séries", "Corrida", "Bicicleta", "Parques", "Futebol",
@@ -26,67 +30,58 @@ export default function Register() {
     );
   };
 
+
+
   const validarTelefone = (tel) => /^\d{10,11}$/.test(tel.replace(/\D/g, ""));
   const validarEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const maxDate = new Date().toISOString().split("T")[0];
 
-  const handleRegister = async () => {
-    if (!nome || !email || !senha || !confirmarSenha || !nascimento || !objetivo || !telefone) {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    }
+ const handleRegister = async () => {
+  if (!nome || !email || !senha || !confirmarSenha || !nascimento || !objetivo || !telefone) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
 
-    if (!validarEmail(email)) {
-      alert("E-mail inválido.");
-      return;
-    }
+  if (!validarEmail(email)) {
+    alert("E-mail inválido.");
+    return;
+  }
 
-    if (!validarTelefone(telefone)) {
-      alert("Telefone inválido. Digite apenas números com DDD.");
-      return;
-    }
+  if (!validarTelefone(telefone)) {
+    alert("Telefone inválido. Digite apenas números com DDD.");
+    return;
+  }
 
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
-      return;
-    }
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem.");
+    return;
+  }
 
-    const nascimentoFormatado = new Date(nascimento).toLocaleDateString("pt-BR", {
-      timeZone: "UTC",
+  const nascimentoFormatado = new Date(nascimento).toLocaleDateString("pt-BR", {
+    timeZone: "UTC",
+  });
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+    const uid = userCredential.user.uid;
+
+    await setDoc(doc(db, "usuarios", uid), {
+      uid,
+      nome,
+      email,
+      nascimento: nascimentoFormatado,
+      telefone,
+      status: "ativo",
+      objetivo,
+      atividades: atividadesSelecionadas,
     });
 
-    try {
-      
-      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-      const uid = userCredential.user.uid;
-
-      
-      const payload = {
-        uid, 
-        nome,
-        email,
-        nascimento: nascimentoFormatado,
-        telefone: telefone.replace(/\D/g, ""),
-        status: "ativo",
-        objetivo,
-        atividades: atividadesSelecionadas,
-      };
-
-      const response = await fetch("https://api-qjufruucrq-uc.a.run.app/usuarios", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) throw new Error("Erro ao cadastrar usuário no Firestore.");
-
-      alert("Cadastro realizado com sucesso!");
-      
-    } catch (error) {
-      console.error("Erro no cadastro:", error);
-      alert("Erro ao cadastrar: " + error.message);
-    }
-  };
+    alert("Cadastro realizado com sucesso!");
+  } catch (error) {
+    console.error("Erro no cadastro:", error);
+    alert("Erro ao cadastrar: " + error.message);
+  }
+};
 
   return (
     <div className={styles.pageWrapper}>
@@ -208,4 +203,5 @@ export default function Register() {
       </div>
     </div>
   );
-}
+
+};

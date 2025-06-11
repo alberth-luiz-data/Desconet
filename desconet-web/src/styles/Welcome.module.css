@@ -21,7 +21,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 /* Logo: limita largura e mantém proporção */
@@ -49,11 +49,10 @@
 
 /* Botões base */
 .emailButton,
-.registerButton {
+.registerButton { 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
@@ -66,7 +65,7 @@
   margin: 0 auto;
 }
 
-/* Botão email: fundo azul claro, texto branco */
+
 .emailButton {
   background-color: #3b82f6;
   color: #ffffff;
@@ -76,7 +75,7 @@
   background-color: #2563eb;
 }
 
-/* Botão cadastro: fundo branco, texto azul, borda azul */
+
 .registerButton {
   background-color: #ffffff;
   color: #3b82f6;
