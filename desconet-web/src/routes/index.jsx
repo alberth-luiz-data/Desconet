@@ -7,8 +7,8 @@ import ChatAI from "../pages/chatAI";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import NavBAr from "../pages/NavBar";
-import Group from "../pages/group";
-import Family from "../pages/family";
+import Group from "../pages/Group";
+import Family from "../pages/Family";
 
 const routes = [
   { path: "/", element: <Welcome /> },
@@ -20,6 +20,7 @@ const routes = [
   {path: "/profile", element: <Profile /> },
   {path : "/navbar", element: <NavBAr /> },
   {path: "/group", element: <Group /> },
+  {path: "/family", element: <Family /> }
 ];
 
 export default routes;
