@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from '../styles/Register.module.css';
+import { auth } from "../firebaseConfig"; // Certifique-se que este caminho está correto
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function Register() {
   const [nome, setNome] = useState("");
@@ -7,6 +9,7 @@ export default function Register() {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [nascimento, setNascimento] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [objetivo, setObjetivo] = useState("");
   const [atividadesSelecionadas, setAtividadesSelecionadas] = useState([]);
 
@@ -23,15 +26,12 @@ export default function Register() {
     );
   };
 
-  const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validarTelefone = (tel) => /^\d{10,11}$/.test(tel.replace(/\D/g, ""));
+  const validarEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  const maxDate = new Date().toISOString().split("T")[0];
 
-  const hoje = new Date();
-  const maxDate = new Date(hoje.getFullYear() - 14, hoje.getMonth(), hoje.getDate())
-    .toISOString()
-    .split("T")[0];
-
-  const handleRegister = () => {
-    if (!nome || !email || !senha || !confirmarSenha || !nascimento || !objetivo) {
+  const handleRegister = async () => {
+    if (!nome || !email || !senha || !confirmarSenha || !nascimento || !objetivo || !telefone) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
@@ -41,27 +41,58 @@ export default function Register() {
       return;
     }
 
+    if (!validarTelefone(telefone)) {
+      alert("Telefone inválido. Digite apenas números com DDD.");
+      return;
+    }
+
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem.");
       return;
     }
 
-    alert(`Cadastro realizado com sucesso!
-Nome: ${nome}
-E-mail: ${email}
-Objetivo: ${objetivo}
-Atividades: ${atividadesSelecionadas.join(", ")}`);
+    const nascimentoFormatado = new Date(nascimento).toLocaleDateString("pt-BR", {
+      timeZone: "UTC",
+    });
+
+    try {
+      
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      const uid = userCredential.user.uid;
+
+      
+      const payload = {
+        uid, 
+        nome,
+        email,
+        nascimento: nascimentoFormatado,
+        telefone: telefone.replace(/\D/g, ""),
+        status: "ativo",
+        objetivo,
+        atividades: atividadesSelecionadas,
+      };
+
+      const response = await fetch("https://api-qjufruucrq-uc.a.run.app/usuarios", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error("Erro ao cadastrar usuário no Firestore.");
+
+      alert("Cadastro realizado com sucesso!");
+      
+    } catch (error) {
+      console.error("Erro no cadastro:", error);
+      alert("Erro ao cadastrar: " + error.message);
+    }
   };
 
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.card}>
         <div className={styles.header}>
-            <img
-          src="Logo.png" 
-          alt="Logo"
-          className={styles.logo}
-        />
+          <img src="Logo.png" alt="Logo" className={styles.logo} />
           <h1 className={styles.headerText}>Cadastro</h1>
         </div>
 
@@ -87,7 +118,6 @@ Atividades: ${atividadesSelecionadas.join(", ")}`);
                 onChange={(e) => setEmail(e.target.value)}
                 className={styles.input}
               />
-              
             </div>
 
             <div className={styles.inputBox}>
@@ -99,7 +129,6 @@ Atividades: ${atividadesSelecionadas.join(", ")}`);
                 onChange={(e) => setSenha(e.target.value)}
                 className={styles.input}
               />
-              
             </div>
 
             <div className={styles.inputBox}>
@@ -111,7 +140,6 @@ Atividades: ${atividadesSelecionadas.join(", ")}`);
                 onChange={(e) => setConfirmarSenha(e.target.value)}
                 className={styles.input}
               />
-              
             </div>
 
             <div className={styles.inputBox}>
@@ -123,7 +151,17 @@ Atividades: ${atividadesSelecionadas.join(", ")}`);
                 className={styles.input}
                 max={maxDate}
               />
-              
+            </div>
+
+            <div className={styles.inputBox}>
+              <label className={styles.label}>Telefone</label>
+              <input
+                type="tel"
+                placeholder="Digite seu telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+                className={styles.input}
+              />
             </div>
 
             <div className={styles.inputBox}>
@@ -138,7 +176,6 @@ Atividades: ${atividadesSelecionadas.join(", ")}`);
                 <option value="ajudar">Ajudar um amigo</option>
                 <option value="informacoes">Buscar informações</option>
               </select>
-              
             </div>
           </form>
 
