@@ -122,7 +122,7 @@ export default function ChatScreen() {
     <div className="group-page">
       <header className="group-header">
         <button onClick={() => navigate("../../home")} className="group-menu-btn">
-<FaArrowLeft size={20} color="#fff" />
+          <FaArrowLeft size={20} color="#fff" />
         </button>
         <h2 className="group-title">Conversas</h2>
         {activeTab === "group" && (
@@ -162,7 +162,7 @@ export default function ChatScreen() {
           <div
             className="group-card"
             key={item.id}
-            onClick={() => navigate('/chatgroup')}
+            onClick={() => navigate(item.type === "group" ? "/chatGroup" : "/chat")}
             style={{ cursor: 'pointer' }}
           >
             <img src={item.avatar} alt="avatar" className="group-avatar" />
