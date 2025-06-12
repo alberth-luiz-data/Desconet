@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import "../styles/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import logoDefault from "../assets/react.svg"; // Renomeado para clareza, ajuste o caminho se necessário
-import { useNavigate } from "react-router-dom"; // Para navegação
+import logoDefault from "../assets/react.svg";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // Inicializar useNavigate
+  const navigate = useNavigate();
 
-  // Define o nome do usuário e foto a serem exibidos
-  // Mostra "Carregando..." se o AuthContext ainda estiver em loading
-  const userName = "Usuário"; // Valor fixo como no arquivo original fornecido
-  const userProfilePic = logoDefault; // Valor fixo como no arquivo original fornecido
+  const userName = "Usuário";
+  const userProfilePic = logoDefault;
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -20,9 +18,6 @@ const Navbar = () => {
     if (isSidebarOpen) {
       toggleSidebar();
     }
-    // Lógica de logout original (se houver) ou a ser implementada separadamente
-    // Por enquanto, apenas navega para a página inicial como exemplo,
-    // já que a lógica de autenticação não deve ser alterada aqui.
     navigate('/');
   };
 
@@ -36,58 +31,122 @@ const Navbar = () => {
   return (
     <>
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
-        <button className="close-btn" onClick={toggleSidebar}>×</button>
+        <button 
+          className="close-btn" 
+          onClick={toggleSidebar}
+          aria-label="Fechar menu"
+        >
+          ×
+        </button>
 
-        <div className="sidebar-header text-center my-3">
+        <div className="sidebar-header">
           <img 
             src={userProfilePic} 
-            alt="User Avatar" 
+            alt="Avatar do usuário" 
             className="logo-img" 
-            style={{ borderRadius: '50%', width: '60px', height: '60px', objectFit: 'cover', marginBottom: '10px', border: '2px solid white'}}
-            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }} // Fallback se a fotoURL falhar
+            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }}
           />
-          <div className="user-info mt-2">
-            <span className="ms-2" style={{ color: 'white', fontWeight: 'bold' }}>{userName}</span>
+          <div className="user-info">
+            <span>{userName}</span>
           </div>
         </div>
 
         <ul className="menu-list">
-          <li><a href="#" onClick={() => navigateTo('/home')}><span>🏠</span> Início</a></li>
-          <li><a href="#" onClick={() => navigateTo('/chat')}><span>💬</span> Conversas</a></li>
-          <li><a href="#" onClick={() => navigateTo('/community')}><span>👥</span> Comunidade</a></li>
-          <li><a href="#" onClick={() => navigateTo('/profile')}><span>🙍‍♂️</span> Perfil</a></li>
+          <li>
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); navigateTo('/home'); }}
+              aria-label="Ir para página inicial"
+            >
+              <span>🏠</span> Início
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); navigateTo('/chat'); }}
+              aria-label="Ir para conversas"
+            >
+              <span>💬</span> Conversas
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); navigateTo('/community'); }}
+              aria-label="Ir para comunidade"
+            >
+              <span>👥</span> Comunidade
+            </a>
+          </li>
+          <li>
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); navigateTo('/profile'); }}
+              aria-label="Ir para perfil"
+            >
+              <span>🙍‍♂️</span> Perfil
+            </a>
+          </li>
         </ul>
 
         <hr className="mx-3 text-white" />
 
         <ul className="menu-list">
-          {/* <li><a href="#"><span>⚙️</span> Configurações</a></li> */}
-          <li><button className="logout-button-sidebar" onClick={handleLogout}><span>🚪</span> Sair</button></li>
+          <li>
+            <button 
+              className="logout-button-sidebar" 
+              onClick={handleLogout}
+              aria-label="Fazer logout"
+            >
+              <span>🚪</span> Sair
+            </button>
+          </li>
         </ul>
 
-        <div className="sidebar-footer text-center text-white mt-auto mb-2 small">
-          Versão 1.0.0
+        <div className="sidebar-footer">
+          <div>Versão 1.0.0</div>
+          <div style={{ fontSize: '10px', marginTop: '4px', opacity: '0.8' }}>
+            © Desconect
+          </div>
         </div>
       </div>
 
       <nav className="custom-navbar d-flex justify-content-between align-items-center px-3">
-        <button className="menu-btn" onClick={toggleSidebar}>
+        <button 
+          className="menu-btn" 
+          onClick={toggleSidebar}
+          aria-label="Abrir menu"
+        >
           ☰
         </button>
+        
         <div className="search-box flex-grow-1 mx-3">
           <input
             type="text"
             className="form-control"
             placeholder="Pesquisar..."
+            aria-label="Campo de pesquisa"
           />
         </div>
-        {/* Modificado para usar navigateTo('/profile') */}
-        <div className="profile-icon" onClick={() => navigateTo('/profile')} style={{cursor: 'pointer'}}> 
+        
+        <div 
+          className="profile-icon" 
+          onClick={() => navigateTo('/profile')} 
+          role="button"
+          tabIndex={0}
+          aria-label="Ir para perfil"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigateTo('/profile');
+            }
+          }}
+        > 
           <img 
             src={userProfilePic} 
-            alt="Profile" 
-            style={{width: "32px", height: "32px", borderRadius: "50%", objectFit: 'cover', border: '1px solid white'}}
-            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }} // Fallback se a fotoURL falhar
+            alt="Foto do perfil" 
+            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }}
           />
         </div>
       </nav>
