@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/chat-group.css";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaPaperPlane, FaSmile } from "react-icons/fa";
 
 // Mock de mensagens do grupo
@@ -14,6 +15,7 @@ export default function ChatGroup() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState(initialMessages);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const navigate = useNavigate();
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -32,7 +34,7 @@ export default function ChatGroup() {
   return (
     <div className="chat-group-page">
       <div className="chat-group-header">
-        <button className="back-button">
+        <button onClick={() => navigate("../../group")} className="back-button">
           <FaArrowLeft size={20} color="#fff" />
         </button>
         <h2></h2>

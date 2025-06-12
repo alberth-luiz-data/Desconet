@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/group.css";
 import { FaArrowLeft, FaStar, FaBell, FaSearch, FaPlus, FaUsers, FaUser } from "react-icons/fa";
 
@@ -62,7 +63,8 @@ export default function ChatScreen() {
   const [search, setSearch] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newGroup, setNewGroup] = useState({ name: "", description: "" });
-  const [activeTab, setActiveTab] = useState("group"); // "group" ou "chat"
+  const [activeTab, setActiveTab] = useState("group");
+  const navigate = useNavigate();
 
   const toggleFavorite = (id, type) => {
     const update = (list, setList) =>
@@ -119,7 +121,7 @@ export default function ChatScreen() {
   return (
     <div className="group-page">
       <header className="group-header">
-        <button className="group-menu-btn">
+        <button onClick={() => navigate("../../home")} className="group-menu-btn">
 <FaArrowLeft size={20} color="#fff" />
         </button>
         <h2 className="group-title">Conversas</h2>
@@ -157,7 +159,12 @@ export default function ChatScreen() {
 
       <div className="group-list">
         {filteredList.map((item) => (
-          <div className="group-card" key={item.id}>
+          <div
+            className="group-card"
+            key={item.id}
+            onClick={() => navigate('/chatgroup')}
+            style={{ cursor: 'pointer' }}
+          >
             <img src={item.avatar} alt="avatar" className="group-avatar" />
             <div className="group-info">
               <h3 className="group-name">{item.name}</h3>
