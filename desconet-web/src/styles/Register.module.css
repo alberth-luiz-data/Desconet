@@ -27,9 +27,8 @@
 }
 
 .logo {
-  width: 30%;
-  height: 30%;
-  object-fit: contain;
+  width: 170px;   
+  height: auto;
 }
 
 .headerText {
