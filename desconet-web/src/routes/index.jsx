@@ -6,9 +6,10 @@ import Register from "../pages/Register";
 import ChatAI from "../pages/chatAI";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import NavBAr from "../pages/NavBar";
+import NavBAr from "../pages/Navbar";
 import Group from "../pages/Group";
-import Family from "../pages/Family";
+import Family from "../pages/family";
+import Community from "../pages/comunity";
 
 const routes = [
   { path: "/", element: <Welcome /> },
@@ -20,7 +21,8 @@ const routes = [
   {path: "/profile", element: <Profile /> },
   {path : "/navbar", element: <NavBAr /> },
   {path: "/group", element: <Group /> },
-  {path: "/family", element: <Family /> }
+  {path: "/family", element: <Family /> },
+  {path: "/community", element: <Community /> }
 ];
 
 export default routes;

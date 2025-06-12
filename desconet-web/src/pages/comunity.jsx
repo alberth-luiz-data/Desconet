@@ -1,176 +1,256 @@
 import React, { useState } from "react";
 import "../styles/community.css";
-import Navbar from "../pages/components/Navbar";
+import { FaArrowLeft, FaStar, FaBell, FaSearch, FaPlus, FaUsers, FaUser, FaThumbsUp, FaComment } from "react-icons/fa";
 
-const initialPosts = Array.from({ length: 5 }).map((_, i) => ({
-  id: `${i + 1}`,
-  user: "Conexão de verdade",
-  username: "@conectV",
-  message: `Postagem ${i + 1} sobre desconectar. ver mais`,
-  category: i % 2 === 0 ? "Vida Offline" : "Dicas",
-  avatar: `https://randomuser.me/api/portraits/women/${i + 1}.jpg`,
-  likes: 0,
-  shares: 0,
-  comments: [],
-  favorite: false,
-  timestamp: new Date().toISOString(),
-}));
+const initialCommunities = [
+  {
+    id: "1",
+    name: "Desconectando Juntos",
+    description: "Compartilhe dicas e histórias sobre como desconectar da tecnologia!",
+    lastMessage: "Qual foi a melhor atividade offline que você já fez?",
+    members: 30,
+    avatar: "https://randomuser.me/api/portraits/women/1.jpg",
+    unread: 1,
+    favorite: false,
+    notify: true,
+    posts: [
+      {
+        id: "p1",
+        title: "Desconectando do celular por um dia!",
+        content: "Passei um dia sem celular e foi incrível! Recomendo todos a tentarem.",
+        likes: 10,
+        comments: [
+          { id: "c1", user: "João", comment: "Muito interessante! Vou tentar também." },
+          { id: "c2", user: "Maria", comment: "Eu já fiz isso, é libertador!" },
+        ],
+      },
+      {
+        id: "p2",
+        title: "Como fazer uma caminhada ao ar livre sem interrupções",
+        content: "Tirei um dia para caminhar sem olhar para o celular. A natureza é revigorante.",
+        likes: 5,
+        comments: [
+          { id: "c3", user: "Ana", comment: "Preciso tentar isso!" },
+        ],
+      },
+    ],
+    type: "community"
+  },
+  {
+    id: "2",
+    name: "Off-Line Livre",
+    description: "Encontre atividades para desconectar da rotina digital.",
+    lastMessage: "A próxima atividade offline será uma noite de jogos de tabuleiro!",
+    members: 25,
+    avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+    unread: 2,
+    favorite: false,
+    notify: true,
+    posts: [
+      {
+        id: "p3",
+        title: "Noite sem internet: O desafio!",
+        content: "Passamos uma noite sem internet e a experiência foi surreal.",
+        likes: 8,
+        comments: [
+          { id: "c4", user: "Carlos", comment: "Eu adoraria participar da próxima!" },
+        ],
+      },
+    ],
+    type: "community"
+  },
+  {
+    id: "3",
+    name: "Desintoxicação Digital",
+    description: "Compartilhe sua jornada de desintoxicação da internet.",
+    lastMessage: "Quem está pronto para o desafio de 48 horas offline?",
+    members: 15,
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+    unread: 0,
+    favorite: false,
+    notify: true,
+    posts: [
+      {
+        id: "p4",
+        title: "Desafio: 48 horas offline",
+        content: "Quem topa fazer um desafio de 48 horas sem redes sociais?",
+        likes: 12,
+        comments: [
+          { id: "c5", user: "Fernanda", comment: "Desafio aceito!" },
+        ],
+      },
+    ],
+    type: "community"
+  },
+];
 
-const categories = ["Todos", "Vida Offline", "Dicas"];
+export default function CommunityScreen() {
+  const [communities, setCommunities] = useState(initialCommunities);
+  const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState("community"); // "community"
+  const [newComment, setNewComment] = useState(""); // State for new comment input
+  const [commentPosted, setCommentPosted] = useState(false); // State to handle comment post
 
-export default function CommunityFeed() {
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [posts, setPosts] = useState(initialPosts);
-  const [commentText, setCommentText] = useState("");
-  const [commentingPost, setCommentingPost] = useState(null);
-  const [showCreate, setShowCreate] = useState(false);
-  const [newPost, setNewPost] = useState({
-    user: "Você",
-    message: "",
-    category: "Vida Offline",
-  });
+  const filteredList = communities.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.description.toLowerCase().includes(search.toLowerCase())
+  );
 
-  const filtered =
-    selectedCategory === "Todos"
-      ? posts
-      : posts.filter((p) => p.category === selectedCategory);
-
-  const handleLike = (id) => {
-    setPosts((p) =>
-      p.map((post) =>
-        post.id === id ? { ...post, likes: post.likes + 1 } : post
+  const toggleFavorite = (id) => {
+    setCommunities((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, favorite: !item.favorite } : item
       )
     );
   };
 
-  const handleComment = (id, comment) => {
-    setPosts((p) =>
-      p.map((post) =>
-        post.id === id
-          ? { ...post, comments: [...post.comments, comment] }
-          : post
-      )
-    );
-    setCommentingPost(null);
-    setCommentText("");
-  };
-
-  const handleFavorite = (id) => {
-    setPosts((p) =>
-      p.map((post) =>
-        post.id === id ? { ...post, favorite: !post.favorite } : post
+  const handleLikePost = (communityId, postId) => {
+    setCommunities((prev) =>
+      prev.map((community) =>
+        community.id === communityId
+          ? {
+              ...community,
+              posts: community.posts.map((post) =>
+                post.id === postId ? { ...post, likes: post.likes + 1 } : post
+              ),
+            }
+          : community
       )
     );
   };
 
-  const handleCreatePost = () => {
-    if (newPost.message) {
-      const created = {
-        ...newPost,
-        id: String(posts.length + 1),
-        username: "@voce",
-        avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
-        likes: 0,
-        shares: 0,
-        comments: [],
-        favorite: false,
-        timestamp: new Date().toISOString(),
-      };
-      setPosts([created, ...posts]);
-      setNewPost({ user: "Você", message: "", category: "Vida Offline" });
-      setShowCreate(false);
+  const handleCommentPost = (communityId, postId) => {
+    if (newComment.trim()) {
+      setCommunities((prev) =>
+        prev.map((community) =>
+          community.id === communityId
+            ? {
+                ...community,
+                posts: community.posts.map((post) =>
+                  post.id === postId
+                    ? {
+                        ...post,
+                        comments: [
+                          ...post.comments,
+                          { id: String(post.comments.length + 1), user: "Você", comment: newComment },
+                        ],
+                      }
+                    : post
+                ),
+              }
+            : community
+        )
+      );
+      setNewComment(""); // Reset the input after commenting
+      setCommentPosted(true); // Mark as posted
     }
   };
 
   return (
-    <div className="community-page">
-      <Navbar />
+    <div className="community-page" style={{
+      WebkitOverflowScrolling: 'touch',
+      touchAction: 'pan-y'
+    }}>
+      <header className="community-header">
+        <button className="community-menu-btn">
+          <FaArrowLeft size={20} color="#fff" />
+        </button>
+        <h2 className="community-title"></h2>
+      </header>
 
-      <div className="filter-row">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={selectedCategory === cat ? "active" : ""}
-          >
-            {cat}
-          </button>
-        ))}
+      <div className="chat-tabs">
+        <button
+          className={activeTab === "community" ? "active" : ""}
+          onClick={() => setActiveTab("community")}
+        >
+          <FaUsers /> Comunidades
+        </button>
       </div>
 
-      <div className="post-list">
-        {filtered.map((post) => (
-          <div key={post.id} className="post-card">
-            <div className="post-header">
-              <img src={post.avatar} alt="avatar" className="avatar" />
-              <div>
-                <strong>{post.user}</strong> <span>{post.username}</span>
-              </div>
+      <div className="community-search">
+        <FaSearch />
+        <input
+          type="text"
+          placeholder="Buscar comunidade..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <div className="community-list">
+        {filteredList.map((community) => (
+          <div className="community-card" key={community.id}>
+            <img src={community.avatar} alt="avatar" className="community-avatar" />
+            <div className="community-info">
+              <h3 className="community-name">{community.name}</h3>
+              <p className="community-desc">{community.description}</p>
+              <span className="community-members">{community.members} membros</span>
             </div>
-            <p>{post.message}</p>
-            <div className="post-actions">
-              <span onClick={() => handleLike(post.id)}>❤️ {post.likes}</span>
-              <span>🔁 {post.shares}</span>
-              <span>💬 {post.comments.length}</span>
-              <button onClick={() => setCommentingPost(post.id)}>
-                Comentar
-              </button>
-              <button onClick={() => handleFavorite(post.id)}>
-                {post.favorite ? "⭐ Salvo" : "☆ Salvar"}
-              </button>
-            </div>
-            {commentingPost === post.id && (
-              <div className="comment-box">
-                <input
-                  type="text"
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  placeholder="Digite seu comentário..."
+            <div className="community-actions">
+              <button 
+                onClick={() => toggleFavorite(community.id)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '8px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <FaStar 
+                  size={20}
+                  color={community.favorite ? "#facc15" : "#cbd5e1"} 
+                  style={{
+                    transition: 'color 0.2s ease'
+                  }}
                 />
-                <button onClick={() => handleComment(post.id, commentText)}>
-                  Enviar
-                </button>
-              </div>
-            )}
-            {post.comments.length > 0 && (
-              <div className="comments">
-                {post.comments.map((c, i) => (
-                  <p key={i}>
-                    <strong>@voce:</strong> {c}
-                  </p>
-                ))}
-              </div>
-            )}
+              </button>
+            </div>
+            <div className="community-posts">
+              {community.posts.map((post) => (
+                <div className="community-post" key={post.id}>
+                  <h4 className="post-title">{post.title}</h4>
+                  <p className="post-content">{post.content}</p>
+                  <div className="post-actions">
+                    <button onClick={() => handleLikePost(community.id, post.id)}>
+                      <FaThumbsUp /> {post.likes} Likes
+                    </button>
+                    <button onClick={() => handleCommentPost(community.id, post.id)}>
+                      <FaComment /> {post.comments.length} Comentários
+                    </button>
+                  </div>
+                  <div className="comments-section">
+                    {post.comments.map((comment) => (
+                      <div key={comment.id} className="comment">
+                        <strong>{comment.user}: </strong>
+                        <span>{comment.comment}</span>
+                      </div>
+                    ))}
+                    <div className="comment-input">
+                      <input
+                        type="text"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Adicione um comentário..."
+                      />
+                      <button
+                        className="comment-submit"
+                        onClick={() => handleCommentPost(community.id, post.id)}
+                      >
+                        Enviar
+                      </button>
+                    </div>
+                    {commentPosted && <div className="comment-confirmation">Comentário enviado!</div>}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-
-      {showCreate && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Nova postagem</h3>
-            <textarea
-              rows={4}
-              placeholder="Escreva algo para a comunidade..."
-              value={newPost.message}
-              onChange={(e) =>
-                setNewPost({ ...newPost, message: e.target.value })
-              }
-            />
-            <select
-              value={newPost.category}
-              onChange={(e) =>
-                setNewPost({ ...newPost, category: e.target.value })
-              }
-            >
-              <option value="Vida Offline">Vida Offline</option>
-              <option value="Dicas">Dicas</option>
-            </select>
-            <button onClick={handleCreatePost}>Publicar</button>
-            <button onClick={() => setShowCreate(false)}>Cancelar</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

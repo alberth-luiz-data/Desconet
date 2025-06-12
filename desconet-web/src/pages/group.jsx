@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/group.css";
-
 import { FaArrowLeft, FaStar, FaBell, FaSearch, FaPlus, FaUsers, FaUser } from "react-icons/fa";
 
 const initialGroups = [
