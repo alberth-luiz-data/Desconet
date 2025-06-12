@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/chat.css";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaPaperPlane, FaSmile } from "react-icons/fa";
 
 // Mock para mensagens de outras pessoas e do usuário
@@ -14,6 +15,7 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState(initialMessages);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const navigate = useNavigate();
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -32,7 +34,7 @@ export default function Chat() {
   return (
     <div className="chat-page">
       <div className="chat-header">
-        <button className="back-button">
+        <button onClick={() => navigate("../../group")} className="back-button">
           <FaArrowLeft size={20} color="#fff" />
         </button>
       </div>
