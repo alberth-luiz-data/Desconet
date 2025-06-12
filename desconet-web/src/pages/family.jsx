@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../styles/family.css";
+import Navbar from "../pages/Navbar";
+import { useNavigate } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import robo from "/Mascote.png";
@@ -7,6 +9,7 @@ import robo from "/Mascote.png";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function FamilyHomeScreen() {
+  const navigate = useNavigate();
   const currentUser = { displayName: "Usuário", photoURL: "" };
   const nomeAjudado = "Luizinho";
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -29,16 +32,33 @@ export default function FamilyHomeScreen() {
     ],
   };
 
+  const handleRoboClick = () => {
+    navigate('/chatAI');
+  };
+
   return (
-    <div className="family-container">
-      <div className="scroll-content">
+    <div className="family-container" style={{
+      minHeight: '100vh',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      touchAction: 'pan-y'
+    }}>
+      <Navbar />
+      <div style={{ paddingTop: "60px" }} />
+      <div className="scroll-content" style={{
+        minHeight: 'calc(100vh - 60px)',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch'
+      }}>
         <div className="header">
           <p>
             Olá, <strong>{currentUser.displayName.split(" ")[0]}</strong>! Acompanhe o progresso de <strong>{nomeAjudado}</strong> hoje e envie algo que motive ele a continuar desconectado.
           </p>
         </div>
 
-        <div className="robo-assistente">
+        <div className="robo-assistente" onClick={handleRoboClick} style={{
+          cursor: 'pointer'
+        }}>
           <img src={robo} alt="Assistente Desconet" />
         </div>
 

@@ -3,11 +3,31 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: #f8fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .scroll-content {
   padding: 1rem;
   flex-grow: 1;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+/* Configurações para responsivo */
+@media (max-width: 768px) {
+  .family-container {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .scroll-content {
+    min-height: calc(100vh - 60px);
+    padding-bottom: 4rem;
+  }
 }
 
 .header {
@@ -245,6 +265,21 @@
   padding: 1rem;
   flex-grow: 1;
   position: relative;
+}
+
+/* Configurações para responsivo */
+@media (max-width: 768px) {
+  .family-container {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .scroll-content {
+    min-height: calc(100vh - 60px);
+    padding-bottom: 4rem;
+  }
 }
 
 .robo-assistente {

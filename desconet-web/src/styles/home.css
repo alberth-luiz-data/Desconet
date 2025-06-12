@@ -321,3 +321,22 @@
     transform: translateY(0);
   }
 }
+
+/* Configurações para scroll responsivo */
+@media (max-width: 768px) {
+  .home-page {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .robo-assistente-home {
+    position: fixed;
+    top: 120px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+  }
+}
