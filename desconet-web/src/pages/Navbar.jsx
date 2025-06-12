@@ -64,7 +64,7 @@ const Navbar = () => {
           <li>
             <a 
               href="#" 
-              onClick={(e) => { e.preventDefault(); navigateTo('/chat'); }}
+              onClick={(e) => { e.preventDefault(); navigateTo('/group'); }}
               aria-label="Ir para conversas"
             >
               <span>💬</span> Conversas

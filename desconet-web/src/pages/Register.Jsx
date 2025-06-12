@@ -83,7 +83,15 @@ export default function Register() {
 };
 
   return (
-    <div className={styles.pageWrapper}>
+    <div 
+      className={styles.pageWrapper}
+      style={{
+        minHeight: '100vh',
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        paddingTop: '60px'  // compensa a navbar fixa
+      }}
+    >
       <div className={styles.card}>
         <div className={styles.header}>
           <img src="Logo.png" alt="Logo" className={styles.logo} />

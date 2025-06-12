@@ -141,4 +141,18 @@ button:focus-visible {
   .buttonContainer {
     justify-content: center;
   }
+  /* Override para scroll funcionar no modo responsivo */
+  .pageWrapper {
+    display: flex;             /* mantem o flex, mas reposiciona */
+    flex-direction: column;    /* empilha os elementos */
+    align-items: flex-start;   /* não centraliza verticalmente */
+    justify-content: flex-start;
+    height: 100vh;             /* ocupa a altura total da viewport */
+    overflow-y: auto;          /* ativa o scroll vertical */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* scroll suave no iOS */
+    padding: 2rem 1rem;        /* mantém padding, mas ajusta laterais */
+  }
+
+  
 }
