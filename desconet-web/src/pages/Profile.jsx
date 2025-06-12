@@ -2,6 +2,9 @@ import { useState } from "react";
 import styles from "../styles/Profile.module.css";
 import ImageUploading from "react-images-uploading";
 import Desempenho from "./Desempenho";
+import Tarefas from "./Tarefas";
+import Compromisso from "./Compromisso";
+import Post from "./Post";
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -15,14 +18,14 @@ export default function Profile() {
     switch (activeTab) {
       case "Tarefas":
         return (
-          <div className={styles.tabContent}>Conteúdo de tarefas</div>
+          <div className={styles.tabContent}><Tarefas/></div>
         );
       case "Desempenho":
         return <div className={styles.tabContent}><Desempenho/></div>;
       case "Post":
-        return <div className={styles.tabContent}>Posts do usuário</div>;
+        return <div className={styles.tabContent}><Post/></div>;
       case "Compromissos":
-        return <div className={styles.tabContent}>Seus compromissos</div>;
+        return <div className={styles.tabContent}><Compromisso/></div>;
       default:
         return null;
     }
@@ -42,7 +45,7 @@ export default function Profile() {
             {({ imageList, onImageUpload }) => (
               <div className={styles.wallpaperWrapper}>
                 <img
-                  src={imageList[0]?.data_url || "/img/Wallpaper.png"}
+                  src={imageList[0]?.data_url || "/Wallpaper.png"}
                   alt="Wallpaper"
                   className={styles.wallpaperImage}
                 />

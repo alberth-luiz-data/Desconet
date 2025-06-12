@@ -2,42 +2,67 @@ import React, { useState } from "react";
 import "../styles/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import logo from "../assets/react.svg"; // ajuste o caminho se necessário
+import logoDefault from "../assets/react.svg"; // Renomeado para clareza, ajuste o caminho se necessário
+import { useNavigate } from "react-router-dom"; // Para navegação
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate(); // Inicializar useNavigate
+
+  // Define o nome do usuário e foto a serem exibidos
+  // Mostra "Carregando..." se o AuthContext ainda estiver em loading
+  const userName = "Usuário"; // Valor fixo como no arquivo original fornecido
+  const userProfilePic = logoDefault; // Valor fixo como no arquivo original fornecido
+
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const userName = "Usuário"; 
+  const handleLogout = async () => {
+    if (isSidebarOpen) {
+      toggleSidebar();
+    }
+    // Lógica de logout original (se houver) ou a ser implementada separadamente
+    // Por enquanto, apenas navega para a página inicial como exemplo,
+    // já que a lógica de autenticação não deve ser alterada aqui.
+    navigate('/');
+  };
+
+  const navigateTo = (path) => {
+    if (isSidebarOpen) {
+      toggleSidebar();
+    }
+    navigate(path);
+  };
 
   return (
     <>
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <button className="close-btn" onClick={toggleSidebar}>×</button>
 
-        {/* LOGO + Nome */}
         <div className="sidebar-header text-center my-3">
-          <img src={logo} alt="Desconect Logo" className="logo-img" />
+          <img 
+            src={userProfilePic} 
+            alt="User Avatar" 
+            className="logo-img" 
+            style={{ borderRadius: '50%', width: '60px', height: '60px', objectFit: 'cover', marginBottom: '10px', border: '2px solid white'}}
+            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }} // Fallback se a fotoURL falhar
+          />
           <div className="user-info mt-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
-              <path d="M12 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 14c5.33 0 8 2.667 8 4v2H4v-2c0-1.333 2.67-4 8-4z" />
-            </svg>
-            <span className="ms-2">{userName}</span>
+            <span className="ms-2" style={{ color: 'white', fontWeight: 'bold' }}>{userName}</span>
           </div>
         </div>
 
         <ul className="menu-list">
-          <li><a href="#"><span>🏠</span> Início</a></li>
-          <li><a href="#"><span>💬</span> Conversas</a></li>
-          <li><a href="#"><span>👥</span> Comunidade</a></li>
-          <li><a href="#"><span>🙍‍♂️</span> Perfil</a></li>
+          <li><a href="#" onClick={() => navigateTo('/home')}><span>🏠</span> Início</a></li>
+          <li><a href="#" onClick={() => navigateTo('/chat')}><span>💬</span> Conversas</a></li>
+          <li><a href="#" onClick={() => navigateTo('/community')}><span>👥</span> Comunidade</a></li>
+          <li><a href="#" onClick={() => navigateTo('/profile')}><span>🙍‍♂️</span> Perfil</a></li>
         </ul>
 
         <hr className="mx-3 text-white" />
 
         <ul className="menu-list">
           {/* <li><a href="#"><span>⚙️</span> Configurações</a></li> */}
-          <li><a href="#"><span>🚪</span> Sair</a></li>
+          <li><button className="logout-button-sidebar" onClick={handleLogout}><span>🚪</span> Sair</button></li>
         </ul>
 
         <div className="sidebar-footer text-center text-white mt-auto mb-2 small">
@@ -56,10 +81,14 @@ const Navbar = () => {
             placeholder="Pesquisar..."
           />
         </div>
-        <div className="profile-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 24 24">
-            <path d="M12 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 14c5.33 0 8 2.667 8 4v2H4v-2c0-1.333 2.67-4 8-4z" />
-          </svg>
+        {/* Modificado para usar navigateTo('/profile') */}
+        <div className="profile-icon" onClick={() => navigateTo('/profile')} style={{cursor: 'pointer'}}> 
+          <img 
+            src={userProfilePic} 
+            alt="Profile" 
+            style={{width: "32px", height: "32px", borderRadius: "50%", objectFit: 'cover', border: '1px solid white'}}
+            onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }} // Fallback se a fotoURL falhar
+          />
         </div>
       </nav>
     </>
