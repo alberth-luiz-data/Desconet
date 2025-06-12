@@ -10,14 +10,17 @@ import NavBAr from "../pages/Navbar";
 import Group from "../pages/Group";
 import Family from "../pages/family";
 import Community from "../pages/comunity";
+import ChatGroup from "../pages/chat-group";
+import Chat from "../pages/chat";
 
 const routes = [
   { path: "/", element: <Welcome /> },
   { path: "/login", element: <Login /> },
-  { path: "/chat", element: <ChatAI /> },
   { path: "/register", element: <Register /> },
   {path: "/home", element: <Home /> },
   {path: "/chatAI", element: <ChatAI /> },
+  {path: "/chat", element: <Chat /> },
+  {path: "/chatGroup", element: <ChatGroup /> },
   {path: "/profile", element: <Profile /> },
   {path : "/navbar", element: <NavBAr /> },
   {path: "/group", element: <Group /> },
