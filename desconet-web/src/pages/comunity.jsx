@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/community.css";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaStar, FaBell, FaSearch, FaPlus, FaUsers, FaUser, FaThumbsUp, FaComment } from "react-icons/fa";
 
 const initialCommunities = [
@@ -90,6 +91,8 @@ export default function CommunityScreen() {
   const [activeTab, setActiveTab] = useState("community"); // "community"
   const [newComment, setNewComment] = useState(""); // State for new comment input
   const [commentPosted, setCommentPosted] = useState(false); // State to handle comment post
+  const navigate = useNavigate();
+
 
   const filteredList = communities.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -152,7 +155,8 @@ export default function CommunityScreen() {
       touchAction: 'pan-y'
     }}>
       <header className="community-header">
-        <button className="community-menu-btn">
+        <button onClick={() => navigate("../../home")}
+          className="community-menu-btn">
           <FaArrowLeft size={20} color="#fff" />
         </button>
         <h2 className="community-title"></h2>
