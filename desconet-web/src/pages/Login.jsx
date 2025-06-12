@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 export default function Login({ onNavigateRegister }) {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function Login({ onNavigateRegister }) {
     emailInputRef.current?.focus();
   }, []);
 
-  /*
+  
   const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleLogin = async () => {
@@ -52,12 +52,14 @@ export default function Login({ onNavigateRegister }) {
       setLoading(false);
     }
   };
-  */
+  
 
+/*
 const handleLogin = () => {
   console.log("Login clicado");
   navigate("/home");
 };
+*/
 
   return (
     <div className={styles.container}>
