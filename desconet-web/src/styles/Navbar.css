@@ -1,99 +1,94 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
-  padding: 1rem 2rem;
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* Garante que a navbar ocupa o topo todo */
+.custom-navbar {
   width: 100%;
-  box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  background-color: #1b86ea;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-.menu-toggle {
+/* Botão de menu sanduíche */
+.menu-btn {
+  font-size: 24px;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
-  font-size: 1.25rem;
 }
 
-.search-container {
-  display: flex;
-  align-items: center;
-  background-color: #2563eb;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 9999px;
-  padding: 0.3rem 0.75rem;
+/* Barra de pesquisa */
+.search-box {
   flex: 1;
-  max-width: 600px;
-  margin: 0 1rem;
-  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2);
+  margin: 0 15px;
 }
 
-.search-field {
-  flex-grow: 1;
-  background: transparent;
-  border: none;
+.search-box input {
+  border-radius: 20px;
+  padding: 6px 15px;
+}
+
+/* Ícone de perfil */
+.profile-icon img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Sidebar lateral */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #1b86ea;
   color: white;
-  outline: none;
-  padding: 0.4rem;
-  font-size: 0.875rem;
+  transition: left 0.3s ease;
+  z-index: 1050;
+  padding: 20px;
 }
 
-.search-btn {
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar .close-btn {
   background: none;
   border: none;
+  font-size: 28px;
   color: white;
-  padding: 0.25rem;
+  float: right;
   cursor: pointer;
-  font-size: 1rem;
 }
 
-.profile-button {
-  background: none;
-  border: none;
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
   color: white;
-  cursor: pointer;
-  font-size: 1.5rem;
+  text-decoration: none;
+  font-size: 18px;
 }
 
-.drawer {
-  position: absolute;
-  top: 3.5rem;
-  left: 1rem;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 220px;
-}
+@media (max-width: 768px) {
+  .search-box {
+    margin: 0 10px;
+  }
 
-.drawer-item {
-  background-color: #1e3a8a;
-  color: white;
-  border: none;
-  padding: 0.6rem 0.75rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-align: left;
-  transition: background-color 0.2s;
-}
-
-.drawer-item:hover {
-  background-color: #3b82f6;
+  .search-box input {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
 }

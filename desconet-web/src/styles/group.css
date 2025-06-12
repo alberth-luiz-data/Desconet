@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1e3a8a;
+  background-color: #1b86ea;
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
@@ -120,7 +120,7 @@
 }
 
 .group-unread {
-  background-color: #2563eb;
+  background-color: #1b86ea;
   color: white;
   font-size: 0.75rem;
   font-weight: bold;
@@ -168,7 +168,7 @@
 }
 
 .modal-content button {
-  background-color: #2563eb;
+  background-color: #1b86ea;
   color: white;
   border: none;
   padding: 0.6rem;
@@ -180,4 +180,38 @@
 .modal-content button:last-child {
   background-color: #e2e8f0;
   color: #1e293b;
+}
+
+.chat-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.chat-tabs button {
+  flex: 1;
+  padding: 0.5rem;
+  font-weight: bold;
+  border: none;
+  background-color: #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.chat-tabs button.active {
+  background-color: #1b86ea;
+  color: white;
+}
+.group-back-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }

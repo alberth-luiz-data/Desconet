@@ -1,7 +1,6 @@
-// Estrutura inicial para implementação de funcionalidades inteligentes e interativas na tela de grupos
 import React, { useState } from "react";
 import "../styles/group.css";
-import { FaBars, FaStar, FaBell, FaSearch, FaPlus } from "react-icons/fa";
+import { FaArrowLeft, FaStar, FaBell, FaSearch, FaPlus, FaUsers, FaUser } from "react-icons/fa";
 
 const initialGroups = [
   {
@@ -14,6 +13,7 @@ const initialGroups = [
     unread: 1,
     favorite: false,
     notify: true,
+    type: "group"
   },
   {
     id: "2",
@@ -25,34 +25,74 @@ const initialGroups = [
     unread: 2,
     favorite: false,
     notify: true,
+    type: "group"
   },
 ];
 
-export default function GroupScreen() {
+const initialConversations = [
+  {
+    id: "c1",
+    name: "João Silva",
+    description: "Online agora",
+    lastMessage: "Vamos conversar mais tarde?",
+    members: 2,
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+    unread: 0,
+    favorite: false,
+    notify: true,
+    type: "chat"
+  },
+  {
+    id: "c2",
+    name: "Maria Souza",
+    description: "Última vez online: 10h",
+    lastMessage: "Ok, obrigada!",
+    members: 2,
+    avatar: "https://randomuser.me/api/portraits/women/4.jpg",
+    unread: 3,
+    favorite: true,
+    notify: true,
+    type: "chat"
+  },
+];
+
+export default function ChatScreen() {
   const [groups, setGroups] = useState(initialGroups);
+  const [conversations, setConversations] = useState(initialConversations);
   const [search, setSearch] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newGroup, setNewGroup] = useState({ name: "", description: "" });
+  const [activeTab, setActiveTab] = useState("group"); // "group" ou "chat"
 
-  const toggleFavorite = (id) => {
-    setGroups((prev) =>
-      prev.map((g) =>
-        g.id === id ? { ...g, favorite: !g.favorite } : g
-      )
-    );
+  const toggleFavorite = (id, type) => {
+    const update = (list, setList) =>
+      setList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, favorite: !item.favorite } : item
+        )
+      );
+
+    type === "group"
+      ? update(groups, setGroups)
+      : update(conversations, setConversations);
   };
 
-  const toggleNotify = (id) => {
-    setGroups((prev) =>
-      prev.map((g) =>
-        g.id === id ? { ...g, notify: !g.notify } : g
-      )
-    );
+  const toggleNotify = (id, type) => {
+    const update = (list, setList) =>
+      setList((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, notify: !item.notify } : item
+        )
+      );
+
+    type === "group"
+      ? update(groups, setGroups)
+      : update(conversations, setConversations);
   };
 
-  const filteredGroups = groups.filter((g) =>
-    g.name.toLowerCase().includes(search.toLowerCase()) ||
-    g.description.toLowerCase().includes(search.toLowerCase())
+  const filteredList = (activeTab === "group" ? groups : conversations).filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.description.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleCreateGroup = () => {
@@ -62,12 +102,13 @@ export default function GroupScreen() {
         {
           ...newGroup,
           id: String(groups.length + 1),
-          avatar: "https://randomuser.me/api/portraits/women/6.jpg",
+          avatar: "https://randomuser.me/api/portraits/women/8.jpg",
           members: 1,
           lastMessage: "Novo grupo criado",
           unread: 0,
           favorite: false,
           notify: true,
+          type: "group"
         },
       ]);
       setNewGroup({ name: "", description: "" });
@@ -79,42 +120,59 @@ export default function GroupScreen() {
     <div className="group-page">
       <header className="group-header">
         <button className="group-menu-btn">
-          <FaBars size={20} color="#fff" />
+<FaArrowLeft size={20} color="#fff" />
         </button>
-        <h2 className="group-title">Grupos</h2>
-        <button onClick={() => setShowCreateModal(true)} className="group-create-btn">
-          <FaPlus size={16} color="#fff" />
-        </button>
+        <h2 className="group-title">Conversas</h2>
+        {activeTab === "group" && (
+          <button onClick={() => setShowCreateModal(true)} className="group-create-btn">
+            <FaPlus size={16} color="#fff" />
+          </button>
+        )}
       </header>
+
+      <div className="chat-tabs">
+        <button
+          className={activeTab === "group" ? "active" : ""}
+          onClick={() => setActiveTab("group")}
+        >
+          <FaUsers /> Grupos
+        </button>
+        <button
+          className={activeTab === "chat" ? "active" : ""}
+          onClick={() => setActiveTab("chat")}
+        >
+          <FaUser /> Conversas
+        </button>
+      </div>
 
       <div className="group-search">
         <FaSearch />
         <input
           type="text"
-          placeholder="Buscar grupo..."
+          placeholder={`Buscar ${activeTab === "group" ? "grupo" : "conversa"}...`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       <div className="group-list">
-        {filteredGroups.map((group) => (
-          <div className="group-card" key={group.id}>
-            <img src={group.avatar} alt="avatar" className="group-avatar" />
+        {filteredList.map((item) => (
+          <div className="group-card" key={item.id}>
+            <img src={item.avatar} alt="avatar" className="group-avatar" />
             <div className="group-info">
-              <h3 className="group-name">{group.name}</h3>
-              <p className="group-desc">{group.description}</p>
-              <p className="group-last">{group.lastMessage}</p>
-              <span className="group-members">{group.members} membros</span>
+              <h3 className="group-name">{item.name}</h3>
+              <p className="group-desc">{item.description}</p>
+              <p className="group-last">{item.lastMessage}</p>
+              <span className="group-members">{item.members} membros</span>
             </div>
             <div className="group-actions">
-              <button onClick={() => toggleFavorite(group.id)}>
-                <FaStar color={group.favorite ? "#facc15" : "#cbd5e1"} />
+              <button onClick={() => toggleFavorite(item.id, item.type)}>
+                <FaStar color={item.favorite ? "#facc15" : "#cbd5e1"} />
               </button>
-              <button onClick={() => toggleNotify(group.id)}>
-                <FaBell color={group.notify ? "#60a5fa" : "#cbd5e1"} />
+              <button onClick={() => toggleNotify(item.id, item.type)}>
+                <FaBell color={item.notify ? "#60a5fa" : "#cbd5e1"} />
               </button>
-              {group.unread > 0 && <span className="group-unread">{group.unread}</span>}
+              {item.unread > 0 && <span className="group-unread">{item.unread}</span>}
             </div>
           </div>
         ))}

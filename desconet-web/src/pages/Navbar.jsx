@@ -1,68 +1,69 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaUserCircle, FaSearch } from "react-icons/fa";
 import "../styles/Navbar.css";
-import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import logo from "../assets/react.svg"; // ajuste o caminho se necessário
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+const Navbar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const handleNavigate = (path) => {
-    navigate(path);
-    setMenuOpen(false);
-  };
+  const userName = "Usuário"; 
 
   return (
     <>
-      <div className="navbar redesigned-navbar">
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={toggleSidebar}>×</button>
 
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-field"
-            placeholder="Busque novas conexões ou comunidades"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button className="search-btn">
-            <FaSearch size={14} />
-          </button>
+        {/* LOGO + Nome */}
+        <div className="sidebar-header text-center my-3">
+          <img src={logo} alt="Desconect Logo" className="logo-img" />
+          <div className="user-info mt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+              <path d="M12 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 14c5.33 0 8 2.667 8 4v2H4v-2c0-1.333 2.67-4 8-4z" />
+            </svg>
+            <span className="ms-2">{userName}</span>
+          </div>
         </div>
 
-        <button
-          className="profile-button"
-          onClick={() => handleNavigate("/profile")}
-        >
-          <FaUserCircle size={22} />
-        </button>
+        <ul className="menu-list">
+          <li><a href="#"><span>🏠</span> Início</a></li>
+          <li><a href="#"><span>💬</span> Conversas</a></li>
+          <li><a href="#"><span>👥</span> Comunidade</a></li>
+          <li><a href="#"><span>🙍‍♂️</span> Perfil</a></li>
+        </ul>
+
+        <hr className="mx-3 text-white" />
+
+        <ul className="menu-list">
+          {/* <li><a href="#"><span>⚙️</span> Configurações</a></li> */}
+          <li><a href="#"><span>🚪</span> Sair</a></li>
+        </ul>
+
+        <div className="sidebar-footer text-center text-white mt-auto mb-2 small">
+          Versão 1.0.0
+        </div>
       </div>
 
-      {menuOpen && (
-        <div className="drawer">
-          {[
-            { label: "Home", path: "/" },
-            { label: "Perfil", path: "/profile" },
-            { label: "Tela Família", path: "/family" },
-            { label: "Chat IA", path: "/ia" },
-            { label: "Chat", path: "/chat" },
-            { label: "Grupos", path: "/group" },
-            { label: "Vítima", path: "/victim" },
-            { label: "Desafios", path: "/desafios" },
-          ].map((item) => (
-            <button
-              key={item.path}
-              onClick={() => handleNavigate(item.path)}
-              className="drawer-item"
-            >
-              * {item.label}
-            </button>
-          ))}
+      <nav className="custom-navbar d-flex justify-content-between align-items-center px-3">
+        <button className="menu-btn" onClick={toggleSidebar}>
+          ☰
+        </button>
+        <div className="search-box flex-grow-1 mx-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Pesquisar..."
+          />
         </div>
-      )}
+        <div className="profile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 24 24">
+            <path d="M12 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 14c5.33 0 8 2.667 8 4v2H4v-2c0-1.333 2.67-4 8-4z" />
+          </svg>
+        </div>
+      </nav>
     </>
   );
-}
+};
+
+export default Navbar;

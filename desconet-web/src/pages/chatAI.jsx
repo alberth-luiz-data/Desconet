@@ -97,7 +97,7 @@ const ChatAI = () => {
         <div className={styles.header}>
           <button 
             className={styles.backButton}
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/home')}
             title="Voltar ao início"
           >
             <MdArrowBack />

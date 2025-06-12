@@ -1,64 +1,24 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.home-page {
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 2rem;
 }
 
-.custom-header {
-  height: 60px;
-  background-color: #0f172a;
+/* Mensagem com robô */
+.family-header-box {
+  background: linear-gradient(to right, #1b86ea, #1e40af);
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin: 1rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.scroll-area {
-  padding: 1rem;
-  overflow-y: auto;
-}
-
-.top-container {
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.search-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background-color: #1e293b;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  position: relative;
-}
-
-.menu-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.search-input {
-  flex: 1;
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.robo-assistente {
+.robo-assistente-home {
   position: absolute;
-  top: 90px;
-  right: 0;
+  top: 180px;
+  right: 16px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -73,90 +33,139 @@
   cursor: pointer;
 }
 
-.robo-assistente:hover {
+.robo-assistente-home:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 14px rgba(14, 165, 233, 0.7);
+  box-shadow: 0 0 14px rgba(14, 165, 233, 0.7); /* azul claro */
 }
 
-.robo-assistente img {
+
+.robo-fixo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.saudacao {
-  color: white;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-
-.nome {
-  font-weight: bold;
-  color: #38bdf8;
-}
-
-.titulo {
-  color: white;
-  font-size: 1.2rem;
-  margin: 1.5rem 0 0.5rem;
-}
-
-.conexoes {
+/* Perfil do usuário */
+.profile-box-home {
   display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }
 
-.conexao-item {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-}
-
-.foto {
-  width: 48px;
-  height: 48px;
+.avatar {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #3b82f6;
 }
 
-.status-tag {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  font-size: 0.9rem;
-  padding: 0;
+.username {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.progress-bar-containerr {
+  margin: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #1b86ea;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #0ea5e9;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: #1e293b;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Conexões */
+.conexoes {
+  padding: 1rem;
+}
+
+.foto-conexao {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background-color: transparent;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
 }
 
-.status-tag.bom {
-  color: #16a34a;
+.section-title {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1e293b;
+  padding-left: 1rem; /* espaçamento à esquerda */
 }
 
-.status-tag.ruim {
-  color: #dc2626;
+/* Gráfico */
+.grafico-cardd {
+  background-color: #1b86ea;
+  padding: 1rem;
+  border-radius: 16px;
+  margin: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.dicas {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+.grafico-cardd .info-boxess {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
+.grafico-cardd .info-boxx {
+  flex: 1;
+  min-width: 100px;
+  background-color: #fdfeff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #1e293b;
+}
+
+.grafico-cardd .info-labell {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.grafico-cardd .info-valuee {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 0.25rem;
+}
+
+/* Dicas */
 .dica-card {
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  background: linear-gradient(135deg, #1b86ea, #1b86ea);
   color: white;
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
   cursor: pointer;
+  margin: 0 1rem 0.75rem;
 }
 
 .dica-card:hover {
@@ -171,89 +180,144 @@
   font-style: italic;
 }
 
-.grafico-card {
-  background-color: #f1f5f9;
-  padding: 1rem;
+.new-suggestion-btn {
+  background-color: #0ea5e9;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 1rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.new-suggestion-btn:hover {
+  background-color: #0284c7;
+}
+
+.suggestion-form {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 12px;
-  margin-top: 1rem;
-  text-align: center;
+  padding: 1.25rem;
+  margin: 0 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.offline-dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-}
-
-.info-box {
-  flex: 1;
-  min-width: 100px;
-  background-color: #e2e8f0;
+.suggestion-form input,
+.suggestion-form textarea,
+.suggestion-form select {
+  padding: 0.75rem;
   border-radius: 8px;
-  padding: 0.5rem;
-  text-align: center;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  background-color: #f9fafb;
+  color: #1e293b;
+  font-family: inherit;
 }
 
-.info-box .label {
-  display: block;
-  font-size: 0.85rem;
-  color: #475569;
-  margin-bottom: 4px;
-}
-
-.chart-container {
-  flex: 2;
-  max-width: 180px;
-  margin: auto;
-}
-
-.posts {
-  margin-top: 2rem;
-}
-
-.post-balao {
-  display: flex;
-  align-items: flex-start;
-  background-color: #1e293b;
-  padding: 1rem;
-  border-radius: 16px;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+.suggestion-form button {
+  background-color: #2563eb;
   color: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.foto-post {
-  width: 48px;
-  height: 48px;
+.suggestion-form button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Postagens */
+.postagens {
+  padding: 1rem;
+}
+
+.postagem-balao {
+  background: linear-gradient(to right, #1b86ea, #1b86ea);
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.postagem-balao:hover {
+  transform: scale(1.01);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 0.5rem;
+}
+
+.post-header h4 {
+  font-size: 1rem;
+  color: #1e40af;
+  margin: 0;
+}
+
+.autor-foto {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.post-conteudo {
-  flex: 1;
+.post-texto {
+  margin-bottom: 0.75rem;
 }
 
-.usuario {
-  color: #94a3b8;
-  font-weight: normal;
-}
-
-.mensagem {
-  color: #e2e8f0;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.reacoes {
+.acoes-post {
   display: flex;
   gap: 1rem;
-  font-size: 0.75rem;
-  margin-top: 0.5rem;
-  color: #cbd5e1;
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.comentario-box {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.comentario-box input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.comentarios-lista {
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.comentario-item {
+  margin-bottom: 0.25rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
