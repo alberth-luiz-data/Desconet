@@ -61,12 +61,10 @@ export default function Home() {
         setUserName("Usuário"); // Fallback final se nenhum nome for encontrado
       }
 
-      // Tenta obter a URL da foto do perfil do currentUser
-      // Assumindo que o campo no Firestore/currentUser seja 'fotoURL' ou 'photoURL'
-      if (currentUser && (currentUser.fotoURL || currentUser.photoURL)) {
-        setUserPhotoUrl(currentUser.fotoURL || currentUser.photoURL);
+      // Usa currentUser.photoURL se existir, senão a imagem padrão
+      if (currentUser && currentUser.photoURL) {
+        setUserPhotoUrl(currentUser.photoURL);
       } else {
-        // Mantém a imagem padrão se não houver fotoURL no currentUser
         setUserPhotoUrl("https://randomuser.me/api/portraits/men/12.jpg"); 
       }
     }

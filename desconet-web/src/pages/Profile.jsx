@@ -1,18 +1,129 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/Profile.module.css";
-import ImageUploading from "react-images-uploading";
+// ImageUploading será substituído por inputs de arquivo manuais para melhor controle com Firebase
+// import ImageUploading from "react-images-uploading"; 
 import Desempenho from "./Desempenho";
 import Tarefas from "./Tarefas";
 import Compromisso from "./Compromisso";
 import Post from "./Post";
+import { useAuth } from "../contexts/AuthContext"; // Ajuste o caminho se necessário
+import { useNavigate } from "react-router-dom";
+import {
+  uploadImageAndGetURL,
+  updateUserProfileImageInFirestore,
+  updateUserCoverImageInFirestore,
+  updateUserProfileDetailsInFirestore,
+} from "../utils/firebaseUtils"; // Ajuste o caminho se necessário
+
+// Defina caminhos para imagens padrão ou use strings de URL diretamente
+const defaultAvatarSrc = "/Logo.png"; 
+const defaultCoverSrc = "/Wallpaper.png";
 
 export default function Profile() {
+  const { currentUser, refreshCurrentUser, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState([]);
-  const [wallpaperImage, setWallpaperImage] = useState([]);
-  const [name, setName] = useState("Luizinho");
-  const [username, setUsername] = useState("alberth-luiz");
+  
+  // Estados para os arquivos selecionados
+  const [profileImageFile, setProfileImageFile] = useState(null);
+  const [coverImageFile, setCoverImageFile] = useState(null);
+
+  // Estados para as URLs das imagens exibidas
+  const [displayProfileImage, setDisplayProfileImage] = useState(defaultAvatarSrc);
+  const [displayCoverImage, setDisplayCoverImage] = useState(defaultCoverSrc);
+  
+  // Estados para os dados do perfil editáveis
+  const [name, setName] = useState(""); // Removido valor inicial "Luizinho"
+  const [username, setUsername] = useState(""); // Removido valor inicial "alberth-luiz"
+  
   const [activeTab, setActiveTab] = useState("Tarefas");
+  
+  // Estados para feedback de upload/salvamento
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    if (!authLoading && currentUser) {
+      setName(currentUser.nome || "");
+      setUsername(currentUser.username || "");
+      setDisplayProfileImage(currentUser.photoURL || defaultAvatarSrc);
+      setDisplayCoverImage(currentUser.coverPhotoURL || defaultCoverSrc);
+    } else if (!authLoading && !currentUser) {
+      navigate("/login"); // Redireciona se não estiver logado e o carregamento terminou
+    }
+  }, [currentUser, authLoading, navigate]);
+
+  const handleFileChange = (setter, displaySetter) => (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setter(file);
+      if (displaySetter) { // Opcional: preview local imediato
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          displaySetter(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+      setError("");
+      setSuccessMessage("");
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    if (!currentUser) {
+      setError("Usuário não autenticado.");
+      return;
+    }
+    setIsProcessing(true);
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      const userIdentifier = currentUser.docId || currentUser.uid; 
+      if (!userIdentifier) {
+        throw new Error("Identificador do usuário (docId ou uid) não encontrado no currentUser.");
+      }
+
+      const detailsToUpdate = {};
+      // Verifica se o nome foi alterado antes de adicionar ao objeto de atualização
+      if (name !== (currentUser.nome || "")) {
+        detailsToUpdate.nome = name;
+      }
+      // Verifica se o username foi alterado
+      if (username !== (currentUser.username || "")) {
+        detailsToUpdate.username = username; // Certifique-se que o campo é 'username' no Firestore
+      }
+
+      if (Object.keys(detailsToUpdate).length > 0) {
+        await updateUserProfileDetailsInFirestore(userIdentifier, detailsToUpdate);
+      }
+
+      if (profileImageFile) {
+        const profileImagePath = `user_photos/${currentUser.uid}/profile_${Date.now()}_${profileImageFile.name}`;
+        const downloadURL = await uploadImageAndGetURL(profileImageFile, profileImagePath);
+        await updateUserProfileImageInFirestore(userIdentifier, downloadURL);
+        setProfileImageFile(null); // Limpa o arquivo selecionado
+      }
+
+      if (coverImageFile) {
+        const coverImagePath = `user_photos/${currentUser.uid}/cover_${Date.now()}_${coverImageFile.name}`;
+        const downloadURL = await uploadImageAndGetURL(coverImageFile, coverImagePath);
+        await updateUserCoverImageInFirestore(userIdentifier, downloadURL);
+        setCoverImageFile(null); // Limpa o arquivo selecionado
+      }
+
+      await refreshCurrentUser(); // Recarrega os dados do usuário no contexto
+      setSuccessMessage("Perfil atualizado com sucesso!");
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Erro ao salvar alterações:", err);
+      setError(`Falha ao salvar alterações: ${err.message}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -31,65 +142,61 @@ export default function Profile() {
     }
   };
 
+  if (authLoading) {
+    return <div className={styles.loadingState}>Carregando perfil...</div>; // Adicione uma classe para estilizar
+  }
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
         {/* Wallpaper */}
         <div className={styles.headerImageWrapper}>
-          <ImageUploading
-            value={wallpaperImage}
-            onChange={setWallpaperImage}
-            dataURLKey="data_url"
-            multiple={false}
-          >
-            {({ imageList, onImageUpload }) => (
-              <div className={styles.wallpaperWrapper}>
-                <img
-                  src={imageList[0]?.data_url || "/Wallpaper.png"}
-                  alt="Wallpaper"
-                  className={styles.wallpaperImage}
-                />
-                {isEditing && (
-                  <button
-                    className={styles.wallpaperEditButton}
-                    onClick={onImageUpload}
-                  >
-                    Trocar imagem
-                  </button>
-                )}
-              </div>
-            )}
-          </ImageUploading>
+          <img
+            src={displayCoverImage}
+            alt="Wallpaper"
+            className={styles.wallpaperImage}
+          />
+          {isEditing && (
+            <>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange(setCoverImageFile, setDisplayCoverImage)}
+                id="wallpaper-upload-input"
+                style={{ display: "none" }}
+              />
+              <label htmlFor="wallpaper-upload-input" className={styles.wallpaperEditButton}>
+                Trocar imagem
+              </label>
+            </>
+          )}
         </div>
 
         {/* Conteúdo */}
         <div className={styles.contentWrapper}>
           <div className={styles.profileContainer}>
             {/* Imagem de perfil */}
-            <ImageUploading
-              value={profileImage}
-              onChange={setProfileImage}
-              dataURLKey="data_url"
-              multiple={false}
-            >
-              {({ imageList, onImageUpload }) => (
-                <div className={styles.profileImageWrapper}>
-                  <img
-                    src={imageList[0]?.data_url || "/Logo.png"}
-                    alt="Profile"
-                    className={styles.profilePicture}
+            <div className={styles.profileImageWrapper}>
+              <img
+                src={displayProfileImage}
+                alt="Profile"
+                className={styles.profilePicture}
+              />
+              {isEditing && (
+                <>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange(setProfileImageFile, setDisplayProfileImage)}
+                    id="profile-image-upload-input"
+                    style={{ display: "none" }}
                   />
-                  {isEditing && (
-                    <button
-                      className={styles.profileEditButton}
-                      onClick={onImageUpload}
-                    >
-                      Trocar
-                    </button>
-                  )}
-                </div>
+                  <label htmlFor="profile-image-upload-input" className={styles.profileEditButton}>
+                    Trocar
+                  </label>
+                </>
               )}
-            </ImageUploading>
+            </div>
 
             {/* Nome e username */}
             <div className={styles.profileInfo}>
@@ -100,12 +207,14 @@ export default function Profile() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={styles.input}
+                    placeholder="Nome"
                   />
                   <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className={styles.input}
+                    placeholder="Nome de usuário"
                   />
                 </>
               ) : (
@@ -127,10 +236,26 @@ export default function Profile() {
             {/* Botão Editar Perfil */}
             <button
               className={styles.editButton}
-              onClick={() => setIsEditing((prev) => !prev)}
+              onClick={() => {
+                if (isEditing) {
+                  handleSaveChanges();
+                } else {
+                  setIsEditing(true);
+                  // Garante que os campos de edição reflitam os dados atuais ao entrar no modo de edição
+                  if (currentUser) {
+                    setName(currentUser.nome || "");
+                    setUsername(currentUser.username || "");
+                  }
+                  setError(""); 
+                  setSuccessMessage("");
+                }
+              }}
+              disabled={isProcessing}
             >
-              {isEditing ? "Salvar alterações" : "Editar perfil"}
+              {isEditing ? (isProcessing ? "Salvando..." : "Salvar alterações") : "Editar perfil"}
             </button>
+            {error && <p className={styles.errorMessage}>{error}</p>}
+            {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
           </div>
 
           {/* Abas */}
