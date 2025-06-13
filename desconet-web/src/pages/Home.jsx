@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/home.css";
 import Navbar from "../pages/Navbar";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { useNavigate } from "react-router-dom";
 import robo from "../assets/Mascote.png";
+import { getUserNameFromLocalStorage } from "../utils/userDataLocalStorage";
+import { useAuth } from "../contexts/AuthContext"; // Importar useAuth
 
 const conexoes = [
   { nome: "Joana", status: "ruim", foto: "https://randomuser.me/api/portraits/women/1.jpg" },
@@ -37,9 +39,32 @@ const posts = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const { currentUser, loading: authLoading } = useAuth(); // Obter currentUser e loading do AuthContext
   const [comentando, setComentando] = useState(null);
   const [novoComentario, setNovoComentario] = useState("");
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    // Só tenta definir o nome do usuário se o AuthContext não estiver carregando
+    if (!authLoading) {
+      const nameFromStorage = getUserNameFromLocalStorage();
+      if (nameFromStorage) {
+        setUserName(nameFromStorage);
+      } else if (currentUser && (currentUser.nome || currentUser.username || currentUser.name)) {
+        // Fallback para os dados do currentUser se o localStorage estiver vazio/desatualizado
+        // mas o AuthContext já tem os dados do usuário.
+        // A ordem de verificação (nome, username, name) deve ser consistente com getUserNameFromLocalStorage
+        setUserName(currentUser.nome || currentUser.username || currentUser.name);
+      } else {
+        setUserName("Usuário"); // Fallback final se nenhum nome for encontrado
+      }
+    }
+    // Opcional: você pode adicionar um 'else' aqui para definir userName como "Carregando..."
+    // se authLoading for true, caso deseje um feedback visual.
+    // else { setUserName("Carregando..."); }
+    
+  }, [currentUser, authLoading]); // Re-executa quando currentUser ou authLoading mudam
 
   const handleComentar = (index) => {
     if (novoComentario) {
@@ -61,7 +86,7 @@ export default function Home() {
 
       <div className="family-header-box">
         <p>
-          Olá, <strong>Luizinho</strong>! Acompanhe seu progresso hoje e sua evolução para continuar desconectado.
+          Olá, <strong>{userName}</strong>! Acompanhe seu progresso hoje e sua evolução para continuar desconectado.
         </p>
       </div>
 
@@ -71,12 +96,12 @@ export default function Home() {
 
       <div className="profile-box-home">
         <img
-          src={"https://randomuser.me/api/portraits/men/12.jpg"}
+          src={"https://randomuser.me/api/portraits/men/12.jpg"} // Idealmente, a foto também viria dos dados do usuário
           alt="avatar"
           className="avatar"
         />
         <div>
-          <p className="username">Luizinho</p>
+          <p className="username">{userName}</p>
         </div>
       </div>
 

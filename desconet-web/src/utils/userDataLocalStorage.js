@@ -53,3 +53,25 @@ export const getUserFromLocalStorage = () => {
   }
   return null;
 };
+
+/**
+ * Obtém o nome de usuário do localStorage.
+ * Tenta obter a propriedade 'username', e como fallback 'name'.
+ * @returns {string|null} O nome de usuário ou null se não encontrado.
+ */
+export const getUserNameFromLocalStorage = () => {
+  const user = getUserFromLocalStorage();
+  if (user) {
+    // Prioriza 'nome', depois 'username', e por último 'name'
+    if (user.nome) {
+      return user.nome;
+    }
+    if (user.username) {
+      return user.username;
+    }
+    if (user.name) { 
+      return user.name;
+    }
+  }
+  return null;
+};
