@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import logoDefault from "../assets/react.svg";
+import logoDefault from "../assets/desconet.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"; // Adicionado
 
