@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Profile.module.css";
-// ImageUploading será substituído por inputs de arquivo manuais para melhor controle com Firebase
-// import ImageUploading from "react-images-uploading"; 
+
 import Desempenho from "./Desempenho";
 import Tarefas from "./Tarefas";
 import Compromisso from "./Compromisso";
 import Post from "./Post";
-import { useAuth } from "../contexts/AuthContext"; // Ajuste o caminho se necessário
+import { useAuth } from "../contexts/AuthContext"; 
 import { useNavigate } from "react-router-dom";
 import {
   uploadImageAndGetURL,
   updateUserProfileImageInFirestore,
   updateUserCoverImageInFirestore,
   updateUserProfileDetailsInFirestore,
-} from "../utils/firebaseUtils"; // Ajuste o caminho se necessário
+} from "../utils/firebaseUtils"; 
+import defaultCoverPlaceholder from "../assets/capa.png"; // Importa a imagem
 
 // Defina caminhos para imagens padrão ou use strings de URL diretamente
 const defaultAvatarSrc = "/Logo.png"; 
-const defaultCoverSrc = "/assets/capa.png"; // Caminho atualizado para a nova imagem de capa padrão
+const defaultCoverSrc = defaultCoverPlaceholder; // Usa a imagem importada
 
 export default function Profile() {
   const { currentUser, refreshCurrentUser, loading: authLoading } = useAuth();
