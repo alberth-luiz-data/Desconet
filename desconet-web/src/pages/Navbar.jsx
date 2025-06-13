@@ -4,13 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import logoDefault from "../assets/react.svg";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext"; // Adicionado
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { currentUser, loading: authLoading } = useAuth(); // Adicionado
 
-  const userName = "Usuário";
-  const userProfilePic = logoDefault;
+  // Usa dados do currentUser se disponível, com fallbacks
+  const userName = currentUser?.nome || "Usuário";
+  const userProfilePic = currentUser?.photoURL || logoDefault;
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -42,7 +45,7 @@ const Navbar = () => {
         <div className="sidebar-header">
           <img 
             src={userProfilePic} 
-            alt="Avatar do usuário" 
+            alt={`Avatar de ${userName}`} 
             className="logo-img" 
             onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }}
           />
@@ -145,7 +148,7 @@ const Navbar = () => {
         > 
           <img 
             src={userProfilePic} 
-            alt="Foto do perfil" 
+            alt={`Foto de perfil de ${userName}`} 
             onError={(e) => { e.target.onerror = null; e.target.src = logoDefault; }}
           />
         </div>
