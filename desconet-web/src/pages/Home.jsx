@@ -44,6 +44,7 @@ export default function Home() {
   const [novoComentario, setNovoComentario] = useState("");
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [userName, setUserName] = useState("");
+  const [userPhotoUrl, setUserPhotoUrl] = useState("https://randomuser.me/api/portraits/men/12.jpg"); // Imagem padrão
 
   useEffect(() => {
     // Só tenta definir o nome do usuário se o AuthContext não estiver carregando
@@ -58,6 +59,15 @@ export default function Home() {
         setUserName(currentUser.nome || currentUser.username || currentUser.name);
       } else {
         setUserName("Usuário"); // Fallback final se nenhum nome for encontrado
+      }
+
+      // Tenta obter a URL da foto do perfil do currentUser
+      // Assumindo que o campo no Firestore/currentUser seja 'fotoURL' ou 'photoURL'
+      if (currentUser && (currentUser.fotoURL || currentUser.photoURL)) {
+        setUserPhotoUrl(currentUser.fotoURL || currentUser.photoURL);
+      } else {
+        // Mantém a imagem padrão se não houver fotoURL no currentUser
+        setUserPhotoUrl("https://randomuser.me/api/portraits/men/12.jpg"); 
       }
     }
     // Opcional: você pode adicionar um 'else' aqui para definir userName como "Carregando..."
@@ -96,7 +106,7 @@ export default function Home() {
 
       <div className="profile-box-home">
         <img
-          src={"https://randomuser.me/api/portraits/men/12.jpg"} // Idealmente, a foto também viria dos dados do usuário
+          src={userPhotoUrl} 
           alt="avatar"
           className="avatar"
         />
