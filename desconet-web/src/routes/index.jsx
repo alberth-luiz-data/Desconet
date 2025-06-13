@@ -12,20 +12,22 @@ import Family from "../pages/family";
 import Community from "../pages/comunity";
 import ChatGroup from "../pages/chat-group";
 import Chat from "../pages/chat";
+import EscolherPerfil from "../pages/escolher"; // IMPORTAR A NOVA TELA
 
 const routes = [
   { path: "/", element: <Welcome /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  {path: "/home", element: <Home /> },
-  {path: "/chatAI", element: <ChatAI /> },
-  {path: "/chat", element: <Chat /> },
-  {path: "/chatGroup", element: <ChatGroup /> },
-  {path: "/profile", element: <Profile /> },
-  {path : "/navbar", element: <NavBAr /> },
-  {path: "/group", element: <Group /> },
-  {path: "/family", element: <Family /> },
-  {path: "/community", element: <Community /> }
+  { path: "/escolher", element: <EscolherPerfil /> }, // ADICIONAR NOVA ROTA
+  { path: "/home", element: <Home /> },
+  { path: "/chatAI", element: <ChatAI /> },
+  { path: "/chat", element: <Chat /> },
+  { path: "/chatGroup", element: <ChatGroup /> },
+  { path: "/profile", element: <Profile /> },
+  { path: "/navbar", element: <NavBAr /> },
+  { path: "/group", element: <Group /> },
+  { path: "/family", element: <Family /> },
+  { path: "/community", element: <Community /> }
 ];
 
 export default routes;

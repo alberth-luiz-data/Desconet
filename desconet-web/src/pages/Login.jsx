@@ -38,7 +38,7 @@ export default function Login({ onNavigateRegister }) {
       const user = userCredential.user;
       console.log("Usuário autenticado:", user.uid);
       localStorage.setItem("uid", user.uid);
-      navigate("/home");
+      navigate("/escolher"); // MODIFICADO: Redireciona para a tela de escolha
     } catch (error) {
       console.error("Erro no login:", error.code);
       if (error.code === "auth/user-not-found") {

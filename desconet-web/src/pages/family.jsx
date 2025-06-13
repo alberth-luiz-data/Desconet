@@ -1,18 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/family.css";
 import Navbar from "../pages/Navbar";
 import { useNavigate } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import robo from "/Mascote.png";
+import { useAuth } from "../contexts/AuthContext"; // Importar useAuth
+import { getUserNameFromLocalStorage } from "../utils/userDataLocalStorage"; // Importar helper
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function FamilyHomeScreen() {
   const navigate = useNavigate();
-  const currentUser = { displayName: "Usuário", photoURL: "" };
+  const { currentUser, loading: authLoading } = useAuth(); // Obter currentUser e loading
+  const [userName, setUserName] = useState("");
+  const [userPhotoUrl, setUserPhotoUrl] = useState("https://randomuser.me/api/portraits/women/1.jpg"); // Imagem padrão
   const nomeAjudado = "Luizinho";
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading) {
+      const nameFromStorage = getUserNameFromLocalStorage();
+      if (nameFromStorage) {
+        setUserName(nameFromStorage);
+      } else if (currentUser && (currentUser.nome || currentUser.username || currentUser.name)) {
+        setUserName(currentUser.nome || currentUser.username || currentUser.name);
+      } else {
+        setUserName("Usuário"); 
+      }
+
+      if (currentUser && currentUser.photoURL) {
+        setUserPhotoUrl(currentUser.photoURL);
+      } else {
+        setUserPhotoUrl("https://randomuser.me/api/portraits/women/1.jpg"); 
+      }
+    }
+  }, [currentUser, authLoading]);
 
   const totalHoras = 24;
   const horasOffline = 10;
@@ -52,7 +75,7 @@ export default function FamilyHomeScreen() {
       }}>
         <div className="header">
           <p>
-            Olá, <strong>{currentUser.displayName.split(" ")[0]}</strong>! Acompanhe o progresso de <strong>{nomeAjudado}</strong> hoje e envie algo que motive ele a continuar desconectado.
+            Olá, <strong>{userName.split(" ")[0]}</strong>! Acompanhe o progresso de <strong>{nomeAjudado}</strong> hoje e envie algo que motive ele a continuar desconectado.
           </p>
         </div>
 
@@ -64,12 +87,12 @@ export default function FamilyHomeScreen() {
 
         <div className="profile-box">
           <img
-            src={currentUser.photoURL || "https://randomuser.me/api/portraits/women/1.jpg"}
+            src={userPhotoUrl}
             alt="avatar"
             className="avatar"
           />
           <div>
-            <p className="username">{currentUser.displayName}</p>
+            <p className="username">{userName}</p>
             <p className="subtitle">Ajudando {nomeAjudado}</p>
           </div>
         </div>

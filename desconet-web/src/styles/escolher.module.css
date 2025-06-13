@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Cor de fundo similar ao login */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.contentWrapper {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+.logo {
+  width: 100px; /* Ajuste conforme necessário */
+  margin-bottom: 20px;
+}
+
+.titulo {
+  font-size: 2rem;
+  color: #1c3c5a; /* Cor do título */
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaço entre os botões */
+}
+
+.btnEscolha {
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btnFamilia {
+  background-color: #2563eb; /* Azul */
+}
+
+.btnFamilia:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.btnVitima {
+  background-color: #0ea5e9; /* Azul claro / Ciano */
+}
+
+.btnVitima:hover {
+  background-color: #0284c7;
+  transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .contentWrapper {
+    padding: 30px;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+  }
+
+  .subtitulo {
+    font-size: 0.9rem;
+  }
+
+  .btnEscolha {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+}
