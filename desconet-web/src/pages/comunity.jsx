@@ -155,7 +155,7 @@ export default function CommunityScreen() {
       touchAction: 'pan-y'
     }}>
       <header className="community-header">
-        <button onClick={() => navigate("../../home")}
+        <button onClick={() => navigate(-1)}
           className="community-menu-btn">
           <FaArrowLeft size={20} color="#fff" />
         </button>

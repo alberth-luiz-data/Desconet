@@ -121,7 +121,7 @@ export default function ChatScreen() {
   return (
     <div className="group-page">
       <header className="group-header">
-        <button onClick={() => navigate("../../home")} className="group-menu-btn">
+        <button onClick={() => navigate(-1)} className="group-menu-btn">
           <FaArrowLeft size={20} color="#fff" />
         </button>
         <h2 className="group-title">Conversas</h2>

@@ -17,7 +17,7 @@ import {
 
 // Defina caminhos para imagens padrão ou use strings de URL diretamente
 const defaultAvatarSrc = "/Logo.png"; 
-const defaultCoverSrc = "/Wallpaper.png";
+const defaultCoverSrc = "/assets/capa.png"; // Caminho atualizado para a nova imagem de capa padrão
 
 export default function Profile() {
   const { currentUser, refreshCurrentUser, loading: authLoading } = useAuth();
